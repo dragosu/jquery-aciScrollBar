@@ -1,0 +1,12 @@
+
+aciScrollBar jQuery Plugin v2.1
+http://acoderinsights.ro
+
+Copyright (c) 2012 Dragos Ursu
+Dual licensed under the MIT or GPL Version 2 licenses.
+
+Require jQuery Library http://jquery.com
++ (optional) MouseWheel Plugin (for mouse wheel support) https://github.com/brandonaaron/jquery-mousewheel
++ (optional) TouchSwipe Plugin (for touch based devices) https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
+
+Date: Fri Feb 24 20:25 2012 +0200
