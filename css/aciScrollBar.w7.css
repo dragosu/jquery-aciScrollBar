@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+/*
+
+aciScrollBar "W7" Theme
+http://acoderinsights.ro/
+
+Author: Dragos Ursu
+Date: Fri Feb 17 20:05 2012 +0200
+
+*/
+
+.aciScrollBar.w7 {
+	overflow:hidden;
+	position:relative;
+	z-index:10001;
+	border-color:#CCCCCC;
+}
+
+.aciSb_cnt.w7 {
+	position:relative;
+	overflow:hidden;
+}
+
+/* bars */
+
+.aciSb_bar_v.w7,
+.aciSb_bar_h.w7 {
+	z-index:10002;
+	background-color:#FFF;
+}
+
+.aciSb_bar_v.w7 {
+	width:17px;
+}
+
+.aciSb_bar_h.w7 {
+	height:17px;
+}
+
+.aciSb_grip.w7 {
+	height:0;
+	width:0;
+}
+
+.aciSb_resize.w7 {
+	z-index:10002; 
+	background:url(../image/aciScrollBar.w7/resize.png) 0 0 no-repeat;
+}
+
+.aciSb_resize.w7.aciSb_gray {
+	background-image:none;
+	background-color:#ECE9D8;
+}
+
+.aciSb_resize.w7.aciSb_ontl {
+	background-position:0 0;
+	cursor:nw-resize;
+}
+
+.aciSb_resize.w7.aciSb_ontr {
+	background-position:0 -17px;
+	cursor:ne-resize;
+}
+
+.aciSb_resize.w7.aciSb_onbr {
+	background-position:0 -34px;
+	cursor:se-resize;
+}
+
+.aciSb_resize.w7.aciSb_onbl {
+	background-position:0 -51px;
+	cursor:sw-resize;
+}
+
+/* arrow */
+
+.aciSb_arrow_l.w7,
+.aciSb_arrow_t.w7,
+.aciSb_arrow_r.w7,
+.aciSb_arrow_b.w7 {
+	width:17px;
+	height:17px;
+}
+
+.aciSb_arrow_l.w7 {
+	background:url(../image/aciScrollBar.w7/arrow_l.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_t.w7 {
+	background:url(../image/aciScrollBar.w7/arrow_t.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_r.w7 {
+	background:url(../image/aciScrollBar.w7/arrow_r.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_b.w7 {
+	background:url(../image/aciScrollBar.w7/arrow_b.png) 0 0 no-repeat;
+}
+
+/* track */
+
+.aciSb_track_h.w7 {
+	background:url(../image/aciScrollBar.w7/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_v.w7 {
+	background:url(../image/aciScrollBar.w7/track_v.png) 0 0 repeat-y;
+}
+
+.aciSb_track_l.w7,
+.aciSb_track_r.w7 {
+	background:url(../image/aciScrollBar.w7/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_t.w7,
+.aciSb_track_b.w7 {
+	background:url(../image/aciScrollBar.w7/track_v.png) 0 0 repeat-y;
+}
+
+/* space */
+
+.aciSb_space_t.w7,
+.aciSb_space_b.w7 {
+	height:0;
+}
+
+.aciSb_space_l.w7,
+.aciSb_space_r.w7 {
+	width:0;
+}
+
+/* drag */
+
+.aciSb_drag_l.w7 {
+	width:4px;
+	background:url(../image/aciScrollBar.w7/drag_l.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_h.w7 {
+	background:url(../image/aciScrollBar.w7/drag_h.png) 0 0 repeat-x;	
+}
+
+.aciSb_drag_hg.w7 {
+	width:10px;
+	background:url(../image/aciScrollBar.w7/drag_hg.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_r.w7 {
+	width:5px;
+	background:url(../image/aciScrollBar.w7/drag_r.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_t.w7 {
+	height:5px;
+	background:url(../image/aciScrollBar.w7/drag_t.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_v.w7 {
+	background:url(../image/aciScrollBar.w7/drag_v.png) 0 0 repeat-y;		
+}
+
+.aciSb_drag_vg.w7{
+	height:10px;
+	background:url(../image/aciScrollBar.w7/drag_vg.png) 0 0 no-repeat;		
+}
+
+.aciSb_drag_b.w7 {
+	height:4px;
+	background:url(../image/aciScrollBar.w7/drag_b.png) 0 0 no-repeat;		
+}
+
+/* status */
+
+.aciSb_eover .aciSb_arrow_l.w7,
+.aciSb_eover .aciSb_arrow_r.w7,
+.aciSb_eover .aciSb_arrow_t.w7,
+.aciSb_eover .aciSb_arrow_b.w7 {
+	background-position:0 -17px;
+}
+
+.aciSb_arrow_l.w7.aciSb_over,
+.aciSb_arrow_r.w7.aciSb_over,
+.aciSb_arrow_t.w7.aciSb_over,
+.aciSb_arrow_b.w7.aciSb_over {
+	background-position:0 -34px;
+}
+
+.aciSb_arrow_l.w7.aciSb_sel,
+.aciSb_arrow_r.w7.aciSb_sel,
+.aciSb_arrow_t.w7.aciSb_sel,
+.aciSb_arrow_b.w7.aciSb_sel {
+	background-position:0 -51px;
+}
+
+.aciSb_gray .aciSb_arrow_l.w7,
+.aciSb_gray .aciSb_arrow_r.w7,
+.aciSb_gray .aciSb_arrow_t.w7,
+.aciSb_gray .aciSb_arrow_b.w7 {
+	background-position:0 -68px;
+}
+
+.aciSb_over .aciSb_drag_l.w7,
+.aciSb_over .aciSb_drag_h.w7,
+.aciSb_over .aciSb_drag_hg.w7,
+.aciSb_over .aciSb_drag_r.w7 {
+	background-position:0 -17px;
+}
+
+.aciSb_over .aciSb_drag_t.w7,
+.aciSb_over .aciSb_drag_v.w7,
+.aciSb_over .aciSb_drag_vg.w7,
+.aciSb_over .aciSb_drag_b.w7 {
+	background-position:-17px 0;
+}
+
+.aciSb_sel .aciSb_drag_l.w7,
+.aciSb_sel .aciSb_drag_h.w7,
+.aciSb_sel .aciSb_drag_hg.w7,
+.aciSb_sel .aciSb_drag_r.w7 {
+	background-position:0 -34px;
+}
+
+.aciSb_sel .aciSb_drag_t.w7,
+.aciSb_sel .aciSb_drag_v.w7,
+.aciSb_sel .aciSb_drag_vg.w7,
+.aciSb_sel .aciSb_drag_b.w7 {
+	background-position:-34px 0;
+}
+
+.aciSb_track_l.w7.aciSb_sel,
+.aciSb_track_r.w7.aciSb_sel  {
+	background-position:0 -17px;
+}
+
+.aciSb_track_t.w7.aciSb_sel,
+.aciSb_track_b.w7.aciSb_sel {
+	background-position:-17px 0;
+}

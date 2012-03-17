@@ -1,0 +1,233 @@
+@charset "utf-8";
+
+/*
+
+aciScrollBar "XP" Theme
+http://acoderinsights.ro/
+
+Author: Dragos Ursu
+Date: Fri Feb 17 20:05 2012 +0200
+
+*/
+
+.aciScrollBar.xp {
+	overflow:hidden;
+	position:relative;
+	z-index:10001;
+	border-color:#CCCCCC;
+}
+
+.aciSb_cnt.xp {
+	position:relative;
+	overflow:hidden;
+}
+
+/* bars */
+
+.aciSb_bar_v.xp,
+.aciSb_bar_h.xp {
+	z-index:10002;
+	background-color:#FFF;
+}
+
+.aciSb_bar_v.xp {
+	width:17px;
+}
+
+.aciSb_bar_h.xp {
+	height:17px;
+}
+
+.aciSb_grip.xp {
+	height:0;
+	width:0;
+}
+
+.aciSb_resize.xp {
+	z-index:10002; 
+	background:url(../image/aciScrollBar.xp/resize.png) 0 0 no-repeat;
+}
+
+.aciSb_resize.xp.aciSb_gray {
+	background-image:none;
+	background-color:#ECE9D8;
+}
+
+.aciSb_resize.xp.aciSb_ontl {
+	background-position:0 0;
+	cursor:nw-resize;
+}
+
+.aciSb_resize.xp.aciSb_ontr {
+	background-position:0 -17px;
+	cursor:ne-resize;
+}
+
+.aciSb_resize.xp.aciSb_onbr {
+	background-position:0 -34px;
+	cursor:se-resize;
+}
+
+.aciSb_resize.xp.aciSb_onbl {
+	background-position:0 -51px;
+	cursor:sw-resize;
+}
+
+/* arrow */
+
+.aciSb_arrow_l.xp,
+.aciSb_arrow_t.xp,
+.aciSb_arrow_r.xp,
+.aciSb_arrow_b.xp {
+	width:17px;
+	height:17px;
+}
+
+.aciSb_arrow_l.xp {
+	background:url(../image/aciScrollBar.xp/arrow_l.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_t.xp {
+	background:url(../image/aciScrollBar.xp/arrow_t.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_r.xp {
+	background:url(../image/aciScrollBar.xp/arrow_r.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_b.xp {
+	background:url(../image/aciScrollBar.xp/arrow_b.png) 0 0 no-repeat;
+}
+
+/* space */
+
+.aciSb_space_t.xp,
+.aciSb_space_b.xp {
+	height:0;
+}
+
+.aciSb_space_l.xp,
+.aciSb_space_r.xp {
+	width:0;
+}
+
+/* track */
+
+.aciSb_track_h.xp {
+	background:url(../image/aciScrollBar.xp/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_v.xp {
+	background:url(../image/aciScrollBar.xp/track_v.png) 0 0 repeat-y;
+}
+
+.aciSb_track_l.xp,
+.aciSb_track_r.xp {
+	background:url(../image/aciScrollBar.xp/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_t.xp,
+.aciSb_track_b.xp {
+	background:url(../image/aciScrollBar.xp/track_v.png) 0 0 repeat-y;
+}
+
+/* drag */
+
+.aciSb_drag_l.xp {
+	width:4px;
+	background:url(../image/aciScrollBar.xp/drag_l.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_h.xp {
+	background:url(../image/aciScrollBar.xp/drag_h.png) 0 0 repeat-x;	
+}
+
+.aciSb_drag_hg.xp {
+	width:8px;
+	background:url(../image/aciScrollBar.xp/drag_hg.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_r.xp {
+	width:5px;
+	background:url(../image/aciScrollBar.xp/drag_r.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_t.xp {
+	height:5px;
+	background:url(../image/aciScrollBar.xp/drag_t.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_v.xp {
+	background:url(../image/aciScrollBar.xp/drag_v.png) 0 0 repeat-y;		
+}
+
+.aciSb_drag_vg.xp {
+	height:8px;
+	background:url(../image/aciScrollBar.xp/drag_vg.png) 0 0 no-repeat;		
+}
+
+.aciSb_drag_b.xp {
+	height:4px;
+	background:url(../image/aciScrollBar.xp/drag_b.png) 0 0 no-repeat;		
+}
+
+/* status */
+
+.aciSb_arrow_l.xp.aciSb_over,
+.aciSb_arrow_r.xp.aciSb_over,
+.aciSb_arrow_t.xp.aciSb_over,
+.aciSb_arrow_b.xp.aciSb_over {
+	background-position:0 -17px;
+}
+
+.aciSb_arrow_l.xp.aciSb_sel,
+.aciSb_arrow_r.xp.aciSb_sel,
+.aciSb_arrow_t.xp.aciSb_sel,
+.aciSb_arrow_b.xp.aciSb_sel {
+	background-position:0 -34px;
+}
+
+.aciSb_gray .aciSb_arrow_l.xp,
+.aciSb_gray .aciSb_arrow_r.xp,
+.aciSb_gray .aciSb_arrow_t.xp,
+.aciSb_gray .aciSb_arrow_b.xp {
+	background-position:0 -51px;
+}
+
+.aciSb_over .aciSb_drag_l.xp,
+.aciSb_over .aciSb_drag_h.xp,
+.aciSb_over .aciSb_drag_hg.xp,
+.aciSb_over .aciSb_drag_r.xp {
+	background-position:0 -17px;
+}
+
+.aciSb_over .aciSb_drag_t.xp,
+.aciSb_over .aciSb_drag_v.xp,
+.aciSb_over .aciSb_drag_vg.xp,
+.aciSb_over .aciSb_drag_b.xp {
+	background-position:-17px 0;
+}
+
+.aciSb_sel .aciSb_drag_l.xp,
+.aciSb_sel .aciSb_drag_h.xp,
+.aciSb_sel .aciSb_drag_hg.xp,
+.aciSb_sel .aciSb_drag_r.xp {
+	background-position:0 -34px;
+}
+
+.aciSb_sel .aciSb_drag_t.xp,
+.aciSb_sel .aciSb_drag_v.xp,
+.aciSb_sel .aciSb_drag_vg.xp,
+.aciSb_sel .aciSb_drag_b.xp {
+	background-position:-34px 0;
+}
+
+.aciSb_track_l.xp.aciSb_sel,
+.aciSb_track_r.xp.aciSb_sel  {
+	background-position:0 -17px;
+}
+
+.aciSb_track_t.xp.aciSb_sel,
+.aciSb_track_b.xp.aciSb_sel {
+	background-position:-17px 0;
+}

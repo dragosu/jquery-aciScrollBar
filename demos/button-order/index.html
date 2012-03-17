@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="language" content="en" />
+<meta name="robots" content="noindex, follow" />
+<title>Button order - aciScrollBar demo - Cross-browser jQuery scrollbars - Mouse wheel and touch enabled</title>
+<link rel="stylesheet" type="text/css" href="../../css/aciScrollBar.desk.css" media="all" />
+<script type="text/javascript" src="../../js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="../../js/jquery.touchSwipe-1.2.5.js"></script>
+<script type="text/javascript" src="../../js/jquery.aciScrollBar.js"></script>
+<style type="text/css">
+html, body {
+	height:100%;
+}
+body {
+	margin:0;
+	padding:0;
+	color: #000;
+}
+p {
+	margin:25px;
+	clear:both;
+}
+p.scroll {
+	overflow:auto;
+	margin:25px;
+	width:450px;
+	height:350px;
+	border:1px solid #CCC;
+	padding:4px;
+}
+.scroll img {
+	margin:20px;	
+}
+</style>
+<!-- just for syntax highlighting -->
+<link rel="stylesheet" type="text/css" href="../jquery.snippet.css" media="all" />
+<script type="text/javascript" src="../jquery.snippet.js"></script>
+<script type="text/javascript" src="../helper.js"></script>
+<!-- /just for syntax highlighting -->
+</head>
+<body>
+<script type="text/javascript">
+
+$().ready(function(){
+
+	/* default button order */
+	
+	$('.scroll.a1').aciScrollBar();
+	
+	/* we set the next #3 with other bar button order */
+	
+	$('.scroll.a2').aciScrollBar({ 
+		verticalBar: 'bar-up-down', 
+		horizontalBar: 'bar-left-right' 
+	});
+	
+	$('.scroll.a3').aciScrollBar({ 
+		verticalBar: 'bar-up-down', 
+		horizontalBar: 'left-right-bar', 
+		position: 'bottom-left' });
+	
+	$('.scroll.a4').aciScrollBar({ 
+		verticalBar: 'bar', 
+		horizontalBar: 'bar' 
+	});
+	
+	$('.scroll.a5').aciScrollBar({ 
+		verticalBar: 'none', 
+		horizontalBar: 'none' 
+	});
+
+});
+
+</script>
+<p><b>Replace default scrollbars with a custom aciScrollBar for each area. We use default configuration and custom configuration options to change bar button order.</b></p>
+<p class="scroll a1"><b>Area with class: '.scroll.a1' using default 'up-bar-down' order for the vertical bar and 'left-bar-right' for horizontal one.</b><br /><img src="../big-test-image.png" border="0" alt="Big test image" /><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit orci in arcu semper sodales ultrices velit laoreet. Etiam elementum, ligula iaculis dictum tempor, mi augue ultrices libero, sed adipiscing nisi lacus quis enim. Phasellus condimentum mi quis risus mollis a malesuada metus rutrum. Phasellus porttitor mi quis dui aliquam at vulputate tellus tempus. Morbi quam velit, blandit quis elementum non, lacinia vitae risus. Aliquam erat volutpat. Nullam vitae nunc risus, quis dictum lorem. Integer sit amet urna laoreet nunc dignissim laoreet. Morbi suscipit elit et dolor porttitor non porttitor augue tristique. Cras malesuada accumsan sapien. Nunc congue, lectus vel elementum rutrum, magna lectus volutpat augue, quis sollicitudin mauris purus vitae eros. Nulla in nisl in leo pretium ultricies. Nulla viverra nulla id nisl viverra adipiscing. Fusce id consectetur lorem. Vivamus scelerisque tortor at metus consequat tempus consectetur sit amet purus. Duis ultrices gravida viverra.</p>
+
+<!-- just for syntax highlighting -->
+<pre class="code-css"></pre>
+<pre class="code-js"></pre>
+<script type="text/javascript">
+
+helper();
+
+</script>
+<!-- /just for syntax highlighting -->
+
+<p class="scroll a2"><b>Area with class: '.scroll.a2' using 'bar-up-down' order for the vertical bar and 'bar-left-right' for horizontal one.</b><br /><img src="../big-test-image.png" border="0" alt="Big test image" /><br />Mauris pretium tempus mi, id hendrerit turpis volutpat sit amet. Nulla enim erat, eleifend at rhoncus blandit, eleifend a ipsum. Aenean vel auctor enim. Nam mi nibh, hendrerit non molestie vitae, venenatis id nunc. Fusce lacus augue, suscipit at facilisis nec, rhoncus vel justo. Quisque turpis nunc, accumsan a hendrerit vitae, venenatis malesuada est. Integer a augue at augue vehicula feugiat at vel velit. Duis lobortis, est eget pharetra adipiscing, ligula tellus hendrerit mauris, nec pharetra nisi metus at libero.</p>
+<p class="scroll a3"><b>Area with class: '.scroll.a3' using 'bar-up-down' order for the vertical bar and 'left-right-bar' for horizontal one (with a 'bottom-left' position for the bars).</b><br /><img src="../big-test-image.png" border="0" alt="Big test image" /><br />Nullam posuere felis porta ligula ultricies egestas vestibulum nisl molestie. Proin imperdiet, ligula non ultricies consectetur, arcu augue elementum est, non porta ipsum mauris quis nibh. Vivamus hendrerit aliquet rhoncus. Mauris aliquet mattis bibendum. Nulla at lorem sem. Aenean eu lectus est. Donec ullamcorper diam in nibh gravida tristique. Morbi enim erat, malesuada quis aliquam et, elementum sed nisi. Sed elit est, pretium nec posuere vel, consequat eu turpis. Integer in ligula ut diam volutpat dapibus nec eu lacus. Sed sit amet massa velit.</p>
+<p class="scroll a4"><b>Area with class: '.scroll.a4' using 'bar' order for the vertical bar and 'bar' for horizontal one, we hide the push buttons and only show the bars.</b><br /><img src="../big-test-image.png" border="0" alt="Big test image" /><br />Curabitur nec nisi tellus, et faucibus arcu. Nulla facilisi. Maecenas sed magna ac leo ornare dignissim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris dapibus eros a tortor mollis dignissim. Nam elementum bibendum risus, luctus semper elit sodales sed. In malesuada, enim a condimentum pharetra, odio dolor ultricies nunc, vitae lobortis tortor elit ut augue. Sed lacus felis, consectetur non feugiat aliquam, placerat sit amet nunc. Suspendisse congue purus a dui porta dictum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis in imperdiet lorem. Etiam urna quam, scelerisque nec condimentum vel, posuere in risus. </p>
+<p class="scroll a5"><b>Area with class: '.scroll.a2' using 'none' order for the vertical bar and 'none' for horizontal one, we hide both bars in this way.</b><br /><img src="../big-test-image.png" border="0" alt="Big test image" /><br />Mauris pretium tempus mi, id hendrerit turpis volutpat sit amet. Nulla enim erat, eleifend at rhoncus blandit, eleifend a ipsum. Aenean vel auctor enim. Nam mi nibh, hendrerit non molestie vitae, venenatis id nunc. Fusce lacus augue, suscipit at facilisis nec, rhoncus vel justo. Quisque turpis nunc, accumsan a hendrerit vitae, venenatis malesuada est. Integer a augue at augue vehicula feugiat at vel velit. Duis lobortis, est eget pharetra adipiscing, ligula tellus hendrerit mauris, nec pharetra nisi metus at libero.</p>
+</body>
+</html>

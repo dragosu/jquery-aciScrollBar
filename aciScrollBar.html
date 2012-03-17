@@ -1,0 +1,845 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="en" />
+        <meta name="robots" content="noindex, follow" />
+        <title>aciScrollBar - Test suite - Custom scrollbars with jQuery</title>
+        <link rel="stylesheet" type="text/css" href="css/aciScrollBar.desk.css" media="all" />
+        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+        <script type="text/javascript" src="js/jquery.touchSwipe-1.2.5.js"></script>
+        <script type="text/javascript" src="js/jquery.aciScrollBar.js"></script>
+        <style type="text/css">
+            <!--
+            body {
+                margin:0;
+                padding:10px;
+                color: #000;
+            }
+            /* global style for scroll area */
+            .scroll {
+                border:4px solid #CCC;
+                overflow:auto; /* use 'auto' to show scrollbars only when they are needed or 'scroll' to always show the scrollbars */
+                padding:10px;
+                outline:none; /* hide outline when the scroll area will get the focus (by using the TAB key) */
+            }
+            /* selected scroll area */
+            .scroll.selected {
+                border:4px solid #F00 !important;
+            }
+            /* extra element for content padding */
+            .scroll .contentPadding {
+                padding:4px;
+                width:auto;
+            }
+            /* scroll areas */
+            .scrollArea1 {
+                float:left;
+                margin-right:20px;
+                height:400px;
+                width:300px;
+            }
+            .scrollArea2 {
+                height:200px;
+                width:200px;
+                margin-left:40px;
+            }
+            .scrollArea3 {
+                float:left;
+                margin-right:20px;
+                margin-bottom:20px;
+                height:200px;
+                width:200px;
+				overflow:scroll;
+            }
+            .scrollArea4 {
+                float:left;
+                margin-right:20px;
+                height:200px;
+                width:200px;
+            }	
+            .clr {
+                clear:both;
+            }
+            -->
+        </style>
+    </head>
+    <body>
+        <!-- we set "tabIndex" to allow TAB key to select the area and to have 'focus' on the scroll area -->
+        <div tabIndex="0" class="scroll scrollArea1">
+            <div class="contentPadding"> <b>Click on a scroll area to select it (click on the scrollbars or on area's  border) and use the bottom controls to play with it :)</b><br />
+                <img id="img1" src="image/sample.png" border="0" alt="" /> Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                <form action="" target="_self" enctype="application/x-www-form-urlencoded">
+                    a input field
+                    <input type="text" value="some value" />
+                </form>
+                <br />
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                <br />
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                <br />
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <img id="img2" src="image/sample.png" border="0" alt="" /> Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                <div tabIndex="0" class="scroll scrollArea2">
+                    <div class="contentPadding"> Scroll area inside one another. <img id="img1" src="image/sample.png" border="0" alt="" /> Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                        Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                        <br />
+                        end </div>
+                    <!-- /contentPadding -->
+                </div>
+                <!-- /scrollArea2 -->
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                <br />
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                <br />
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <img id="img3" src="image/sample.png" border="0" alt="" /> Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis.
+
+                Test with goto ............... <img width="58px" id="img4" src="image/sample.png" border="0" alt="" /> Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis.
+
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis.
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis.
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis.
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis.
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis.
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Donec euismod lacinia convallis. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                end </div>
+            <!-- /contentPadding -->
+        </div>
+        <!-- /scrollArea1 -->
+        <div tabIndex="0" class="scroll scrollArea3">
+            <div class="contentPadding"> <b>Scroll area with resize (max size set in code to 500x300 when resized with the built-in control).</b><br />
+                Curabitur quis ultricies nulla. Mauris commodo pellentesque nibh nec cursus. Nunc at ligula tortor. Morbi dictum molestie massa eu rutrum. In hac habitasse platea dictumst. Nulla rhoncus feugiat metus, nec pretium dui consectetur sit amet. Sed quis scelerisque justo. Ut et lorem magna. Nulla eget leo purus. Cras nec dui odio, non fermentum dui. Sed semper pellentesque orci, vitae pharetra orci elementum in. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis nec eleifend diam. Ut semper, diam vel tristique pulvinar, nisi purus molestie libero, eu convallis magna nisl sit amet quam. Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                end </div>
+            <!-- /contentPadding -->
+        </div>
+        <!-- /scrollArea3 -->
+        <div tabIndex="0" class="scroll scrollArea4">
+            <div class="contentPadding"> Aenean lobortis felis at ante tincidunt ut tincidunt dui mollis. <br />
+                end </div>
+            <!-- /contentPadding -->
+        </div>
+        <!-- /scrollArea4 -->   
+        <div class="clr"></div>
+        <br />
+        <form action="" target="_self" enctype="application/x-www-form-urlencoded">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td> Left
+                        <input name="position-left" type="text" id="position-left" value="0" size="20" disabled="disabled" /></td>
+                    <td> Top
+                        <input name="position-top" type="text" id="position-top" value="0" size="20" disabled="disabled" /></td>
+                    <td> Width
+                        <input name="width-now" type="text" id="width-now" value="0" size="20" disabled="disabled" /></td>
+                    <td> Height
+                        <input name="height-now" type="text" id="height-now" value="0" size="20" disabled="disabled" /></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top"><table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td colspan="3" align="center" bgcolor="#FFFFCC"><strong>Scroll by a Line</strong></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFCC">&nbsp;</td>
+                                <td align="center" bgcolor="#FFFFCC"><label>
+                                        <input type="button" name="lineup" id="lineup" value="Up" />
+                                    </label></td>
+                                <td align="center" bgcolor="#FFFFCC">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFCC"><label>
+                                        <input type="button" name="lineleft" id="lineleft" value="Left" />
+                                    </label></td>
+                                <td align="center" bgcolor="#FFFFCC">&nbsp;</td>
+                                <td align="center" bgcolor="#FFFFCC"><label>
+                                        <input type="button" name="lineright" id="lineright" value="Right" />
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFCC">&nbsp;</td>
+                                <td align="center" bgcolor="#FFFFCC"><label>
+                                        <input type="button" name="linedown" id="linedown" value="Down" />
+                                    </label></td>
+                                <td align="center" bgcolor="#FFFFCC">&nbsp;</td>
+                            </tr>
+                        </table></td>
+                    <td valign="top"><table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td colspan="3" align="center" bgcolor="#CCCCCC"><strong>Scroll by a Page</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+                                <td align="center" bgcolor="#CCCCCC"><label>
+                                        <input type="button" name="pageup" id="pageup" value="Up" />
+                                    </label></td>
+                                <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC"><label>
+                                        <input type="button" name="pageleft" id="pageleft" value="Left" />
+                                    </label></td>
+                                <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+                                <td align="center" bgcolor="#CCCCCC"><label>
+                                        <input type="button" name="pageright" id="pageright" value="Right" />
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+                                <td align="center" bgcolor="#CCCCCC"><label>
+                                        <input type="button" name="pagedown" id="pagedown" value="Down" />
+                                    </label></td>
+                                <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+                            </tr>
+                        </table></td>
+                    <td valign="top"><table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td width="169" align="center" bgcolor="#FFFFCC"><strong>Set Size</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC">Width
+                                    <label>
+                                        <input name="new-width" type="text" id="new-width" value="800" size="8" maxlength="8" />
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC">Height
+                                    <label>
+                                        <input name="new-height" type="text" id="new-height" value="400" size="8" maxlength="8" />
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC"><input type="button" name="do-resize" id="do-resize" value="Set" /></td>
+                            </tr>
+                        </table></td>
+                    <td valign="top" bgcolor="#CCCCCC"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC"><strong>Add Content</strong></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#CCCCCC"><label>
+                                        <textarea name="add-content" id="add-content" cols="24" rows="5">&lt;br /&gt;
+&lt;img id="img2" src="image/sample.png" border="0" alt="" /&gt;</textarea>
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC"><input type="button" name="content-add" id="content-add" value="Add" />
+                                    <input type="button" name="content-del" id="content-del" value="Remove" /></td>
+                            </tr>
+                        </table></td>
+                    <td rowspan="6" align="center" valign="top" bgcolor="#FFFFCC"><strong>Change Control</strong><br />
+                      (in three steps)
+                      <table width="100%" border="0">
+                        <tr>
+                        <td width="90px"></td>
+                          <td align="left">* focus one area (click or use the TAB key);<br />
+* change the current options here;<br />
+* push <strong>Destroy</strong> and <strong>Initialize</strong> (in this order).</td>
+                        </tr>
+                      </table>
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                                <td valign="top"><table width="230" border="0" cellspacing="0" cellpadding="4">
+                                        <tr>
+                                            <td align="right">bindMouse</td>
+                                            <td><input name="o_bindMouse" type="checkbox" id="o_bindMouse" value="1" checked="checked" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">bindTouch</td>
+                                            <td><input name="o_bindTouch" type="checkbox" id="o_bindTouch" value="1" checked="checked" /></td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td align="right">bindKeyboard</td>
+                                            <td><input name="o_bindKeyboard" type="checkbox" id="o_bindKeyboard" value="1" checked="checked" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">resizable</td>
+                                            <td><input name="o_resizable" type="checkbox" id="o_resizable" value="1" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">smoothScroll</td>
+                                            <td><input name="o_smoothScroll" type="checkbox" id="o_smoothScroll" value="1" /></td>
+                                        </tr>                                
+                                        <tr>
+                                            <td align="right">delta</td>
+                                            <td><input name="o_delta" type="text" id="o_delta" value="20" size="8" maxlength="8" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">lineDelay</td>
+                                            <td><input name="o_lineDelay" type="text" id="o_lineDelay" value="400" size="8" maxlength="8" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">lineTimer</td>
+                                            <td><input name="o_lineTimer" type="text" id="o_lineTimer" value="40" size="8" maxlength="8" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">pageDelay</td>
+                                            <td><input name="o_pageDelay" type="text" id="o_pageDelay" value="400" size="8" maxlength="8" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">pageTimer</td>
+                                            <td><input name="o_pageTimer" type="text" id="o_pageTimer" value="200" size="8" maxlength="8" /></td>
+                                        </tr>
+                                    </table></td>
+                                <td valign="top"><table width="230" border="0" align="right" cellpadding="4" cellspacing="0">
+                                        <tr>
+                                            <td align="right">position</td>
+                                            <td><select name="o_position" id="o_position" style="width:100%">
+                                                    <option value="bottom-right">bottom-right</option>
+                                                    <option value="bottom-left">bottom-left</option>
+                                                    <option value="top-left">top-left</option>
+                                                    <option value="top-right">top-right</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">verticalBar</td>
+                                            <td><select name="o_verticalBar" id="o_verticalBar" style="width:100%">
+                                                    <option value="up-bar-down">up-bar-down</option>
+                                                    <option value="up-down-bar">up-down-bar</option>
+                                                    <option value="bar-up-down">bar-up-down</option>
+                                                    <option value="bar">bar</option>
+                                                    <option value="none">none</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">horizontalBar</td>
+                                            <td><select name="o_horizontalBar" id="o_horizontalBar" style="width:100%">
+                                                    <option value="left-bar-right">left-bar-right</option>
+                                                    <option value="left-right-bar">left-right-bar</option>
+                                                    <option value="bar-left-right">bar-left-right</option>
+                                                    <option value="bar">bar</option>
+                                                    <option value="none">none</option>
+                                                </select></td>
+                                        </tr>                                
+                                        <tr>
+                                            <td align="right">skin</td>
+                                            <td><input name="o_skin" type="text" id="o_skin" value="w7" size="20" maxlength="20" /></td>
+                                        </tr>
+                                        <tr><td colspan="2"><p>and/or try the <a href="demos/" target="_blank" title="">small usage demos</a></p></td></tr>
+                                    </table></td>
+                            </tr>
+                        </table></td>
+                </tr>
+                <tr>
+                    <td valign="top"><table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td colspan="2" align="center" bgcolor="#CCCCCC"><strong>Scroll To</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC">Top</td>
+                                <td align="center" bgcolor="#CCCCCC"><label>
+                                        <input name="scrolltop" type="text" id="scrolltop" value="35%" size="20" maxlength="8" />
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC">Left</td>
+                                <td align="center" bgcolor="#CCCCCC"><input name="scrollleft" type="text" id="scrollleft" value="25" size="20" maxlength="8" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+                                <td align="center" bgcolor="#CCCCCC"><label>
+                                        <input type="button" name="scroll" id="scroll" value="Go" />
+                                    </label></td>
+                            </tr>
+                        </table>
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC"><input name="animate" type="checkbox" id="animate" value="1" checked="checked" />
+                                    Animate</td>
+                            </tr>
+                        </table></td>
+                    <td valign="top"><table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC"><strong>Go To</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC"><input name="goto-object" type="text" id="goto-object" value="#img2" size="20" maxlength="20" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC">#img1, #img2, #img3, #img4</td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC"><input type="button" name="goto" id="goto" value="Go" /></td>
+                            </tr>
+                        </table>
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC">Duration
+                                    <input name="duration" type="text" id="duration" value="slow" size="15" maxlength="15" /></td>
+                            </tr>
+                        </table></td>
+                    <td valign="top" align="center"><table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td align="center" bgcolor="#CCCCCC">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC"><label>
+                                        <input name="goto-center" type="checkbox" id="goto-center" value="1" checked="checked" />
+                                        Center </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC">Offset X
+                                    <input name="offset-x" type="text" id="offset-x" value="10" size="18" maxlength="8" /></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#FFFFCC"><label> Offset Y
+                                        <input name="offset-y" type="text" id="offset-y" value="0" size="18" maxlength="8" />
+                                    </label></td>
+                            </tr>
+                        </table>
+                        <label> </label>
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0">
+                            <tr>
+                                <td align="center" bgcolor="#F7F7F7"><strong>Skin</strong>
+                                    <select name="skin-css" id="skin-css" style="width:120px">
+                                        <option value="w7">w7</option>
+                                        <option value="office">office</option>
+                                        <option value="xp">xp</option>
+                                        <option value="w2k">w2k</option>
+                                        <option value="desk">desk</option>
+                                    </select></td>
+                            </tr>
+                        </table></td>
+                    <td valign="top" background="#F7F7F7" bgcolor="#F7F7F7"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="center" bgcolor="#F7F7F7">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#F7F7F7"><label><br />
+                                        <input type="button" name="do-init" id="do-init" value="Initialize" />
+                                        <br />
+                                        <br />
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#F7F7F7"><label> <br />
+                                        <input type="button" name="do-destroy" id="do-destroy" value="Destroy" />
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td align="center" bgcolor="#F7F7F7">&nbsp;</td>
+                            </tr>
+                        </table></td>
+                </tr>
+                <tr>
+                    <td colspan="4" bgcolor="#99CCFF"><strong>Outer padding</strong><br /></td>
+                </tr>
+                <tr>
+                    <td align="center" bgcolor="#99CCFF"> Top
+                        <input name="outerPadding-Top" type="text" id="outerPadding-Top" value="" size="8" maxlength="8" /></td>
+                    <td align="center" bgcolor="#99CCFF"> Right
+                        <input name="outerPadding-Right" type="text" id="outerPadding-Right" value="" size="8" maxlength="8" /></td>
+                    <td align="center" bgcolor="#99CCFF"> Bottom
+                        <input name="outerPadding-Bottom" type="text" id="outerPadding-Bottom" value="" size="8" maxlength="8" /></td>
+                    <td align="center" bgcolor="#99CCFF"> Left
+                        <input name="outerPadding-Left" type="text" id="outerPadding-Left" value="" size="8" maxlength="8" /></td>
+                </tr>
+                <tr>
+                    <td colspan="4" bgcolor="#FFCCFF"><strong>Inner padding</strong><br /></td>
+                </tr>
+                <tr>
+                    <td align="center" bgcolor="#FFCCFF"> Top
+                        <input name="innerPadding-Top" type="text" id="innerPadding-Top" value="" size="8" maxlength="8" /></td>
+                    <td align="center" bgcolor="#FFCCFF"> Right
+                        <input name="innerPadding-Right" type="text" id="innerPadding-Right" value="" size="8" maxlength="8" /></td>
+                    <td align="center" bgcolor="#FFCCFF"> Bottom
+                        <input name="innerPadding-Bottom" type="text" id="innerPadding-Bottom" value="" size="8" maxlength="8" /></td>
+                    <td align="center" bgcolor="#FFCCFF"> Left
+                        <input name="innerPadding-Left" type="text" id="innerPadding-Left" value="" size="8" maxlength="8" /></td>
+                </tr>
+            </table>
+        </form>
+        <script language="javascript" type="text/javascript">
+            <!--
+
+            function loadCss (href, media, fnc)
+            {
+                var found = false;
+                $('html').find('link[rel="stylesheet"]').each(function(){
+                    if ($(this).attr('href') == href)
+                    {
+                        found = true;
+                    }
+                });
+                if (!found)
+                {
+                    var link = $(document.createElement('link'));
+                    $('head').append(link);
+                    link.attr({rel:'stylesheet',type:'text/css',href:href,media:media});
+                    if (fnc)
+                    {
+                        // should finish to load in 500 ms :)
+                        window.setTimeout(fnc, 500);
+                    }
+                }
+                else
+                {
+                    fnc();
+                }
+            }
+
+            var _g_area = null;
+
+            function selectArea (obj)
+            {
+                _g_area = obj;
+
+                // select the right area
+                $('.scroll').removeClass('selected');
+                $(_g_area).addClass('selected');
+
+                // update position display
+                $('#position-left').val($(_g_area).aciScrollBar('container').scrollLeft());
+                $('#position-top').val($(_g_area).aciScrollBar('container').scrollTop());
+
+                // update size display
+                $('#width-now').val($(_g_area).width());
+                $('#height-now').val($(_g_area).height());
+
+                // update outer padding display
+                $('#outerPadding-Top').val(parseInt($(_g_area).css("padding-top")));
+                $('#outerPadding-Right').val(parseInt($(_g_area).css("padding-right")));
+                $('#outerPadding-Bottom').val(parseInt($(_g_area).css("padding-bottom")));
+                $('#outerPadding-Left').val(parseInt($(_g_area).css("padding-left")));
+
+                // update inner padding display
+                var inner = $(_g_area).find(".contentPadding:first");
+                $('#innerPadding-Top').val(parseInt(inner.css("padding-top")));
+                $('#innerPadding-Right').val(parseInt(inner.css("padding-right")));
+                $('#innerPadding-Bottom').val(parseInt(inner.css("padding-bottom")));
+                $('#innerPadding-Left').val(parseInt(inner.css("padding-left")));
+
+                // update current used skin
+                $("#skin-css").val($(_g_area).aciScrollBar("skin"));
+
+                // refresh options display
+                var o = $(_g_area).aciScrollBar("options");
+
+                $("#o_delta").val(o.delta);
+                $("#o_lineDelay").val(o.lineDelay);
+                $("#o_lineTimer").val(o.lineTimer);
+                $("#o_pageDelay").val(o.pageDelay);
+                $("#o_pageTimer").val(o.pageTimer);
+                $("#o_bindMouse").attr("checked", o.bindMouse);
+				$("#o_bindTouch").attr("checked", o.bindTouch);
+                $("#o_bindKeyboard").attr("checked", o.bindKeyboard);
+                $("#o_resizable").attr("checked", o.resizable);
+                $("#o_position").val(o.position);
+                $("#o_verticalBar").val(o.verticalBar);
+                $("#o_horizontalBar").val(o.horizontalBar);
+                $("#o_smoothScroll").attr("checked", o.smoothScroll);
+                $("#o_skin").val(o.skin);
+            }
+
+            function initOptions ()
+            {
+                // get init options
+                return {
+                    delta:$("#o_delta").val(),
+                    lineDelay:$("#o_lineDelay").val(),
+                    lineTimer:$("#o_lineTimer").val(),
+                    pageDelay:$("#o_pageDelay").val(),
+                    pageTimer:$("#o_pageTimer").val(),
+                    bindMouse:$("#o_bindMouse").is(":checked"),
+					bindTouch:$("#o_bindTouch").is(":checked"),
+                    bindKeyboard:$("#o_bindKeyboard").is(":checked"),
+                    resizable:$("#o_resizable").is(":checked"),
+                    position:$("#o_position").val(),
+                    verticalBar:$("#o_verticalBar").val(),
+                    horizontalBar:$("#o_horizontalBar").val(),
+                    smoothScroll:$("#o_smoothScroll").is(":checked"),
+                    skin:$("#o_skin").val()
+                };
+            }
+
+            function getArea ()
+            {
+                // get selected area
+                return $(_g_area);
+            }
+
+            $(document).ready(function(){
+
+                // set default skin
+                $("#skin-css").val('desk');
+				
+				// enable 'smoothScroll' by default
+				$.fn.aciScrollBar.defaults.smoothScroll = true;
+				// set default class
+				$.fn.aciScrollBar.defaults.skin = 'desk';
+
+                // init scoll area 1
+                $('.scrollArea1').bind('init', function(e){
+                    //alert('Init start on the element with [class=' + $(e.target).attr('class') + ']');
+                }).bind('ready', function(e){
+                    //alert('Init done on the element with [class=' + $(e.target).attr('class') + ']');
+                }).bind('reinit', function(e, initial){
+                    // we use this custom event to (re)init the control
+                    if (initial)
+                    {
+                        // initial init with default values
+                        $(this).aciScrollBar();
+                    }
+                    else
+                    {
+                        // init area with the requested options
+                        var o = initOptions();
+                        loadCss('css/aciScrollBar.' + o.skin + '.css', 'all', function(){
+							// we need to load the .css before we set the skin
+                            var area = getArea();
+                            $(area).aciScrollBar(o);
+                        });
+                    }
+                }).bind('click focus', function(){
+                    // select this area
+                    selectArea(this);
+                    return false;
+                }).trigger("reinit", true);
+
+                // initial select first area
+                selectArea($('.scrollArea1'));
+
+                // scroll with a line
+                $('#lineup').click(function(){
+                    var area = getArea();
+                    area.trigger('lineup');
+                });
+                $('#linedown').click(function(){
+                    var area = getArea();
+                    area.trigger('linedown');
+                });
+                $('#lineleft').click(function(){
+                    var area = getArea();
+                    area.trigger('lineleft');
+                });
+                $('#lineright').click(function(){
+                    var area = getArea();
+                    area.trigger('lineright');
+                });
+
+                // scroll with a page
+                $('#pageup').click(function(){
+                    var area = getArea();
+                    area.trigger('pageup');
+                });
+                $('#pagedown').click(function(){
+                    var area = getArea();
+                    area.trigger('pagedown');
+                });
+                $('#pageleft').click(function(){
+                    var area = getArea();
+                    area.trigger('pageleft');
+                });
+                $('#pageright').click(function(){
+                    var area = getArea();
+                    area.trigger('pageright');
+                });
+
+                // scroll to top/left position (by pixels or [%] from the total size)
+                $('#scroll').click(function(){
+                    var area = getArea();
+                    area.trigger('scroll', {
+                        top: $('#scrolltop').val(),
+                        left: $('#scrollleft').val(),
+                        animate: $('#animate').attr('checked') ? 'swing' : false,
+                        duration: $('#duration').val()
+                    });
+                });
+
+                // scroll to a object from within the content
+                $('#goto').click(function(){
+                    var area = getArea();
+                    area.trigger('scroll', {
+                        element: $('#goto-object').val(),
+                        center: $('#goto-center').attr('checked'),
+                        offsetx: $('#offset-x').val(),
+                        offsety: $('#offset-y').val(),
+                        animate: $('#animate').attr('checked') ? 'swing' : false,
+                        duration: $('#duration').val()
+                    });
+                });
+
+                // resize the scroll area
+                $('#do-resize').click(function(){
+					var w = parseInt($('#new-width').val());
+					var h = parseInt($('#new-height').val());
+                    var area = getArea();
+                    area.width(w).height(h);
+                    // print out current values
+                    $('#width-now').val(w);
+                    $('#height-now').val(h);
+                });
+
+                // init scroll area #2 (positioned inside scroll area #1)
+                $('.scrollArea2').bind('click focus', function(){
+                    // select this area
+                    selectArea(this);
+                    return false;
+                }).bind("reinit", function(e, initial){
+                    // we use this custom event to (re)init the control
+                    if (initial)
+                    {
+                        // initial init with default values
+                        $(this).aciScrollBar();
+                    }
+                    else
+                    {
+                        // init area with the requested options
+                        var o = initOptions();
+                        loadCss('css/aciScrollBar.' + o.skin + '.css', 'all', function(){
+                            var area = getArea();
+                            $(area).aciScrollBar(o);
+                        });
+                    }
+                }).trigger("reinit", true);
+
+                // init scroll area #3 (a small resizable area)
+                $('.scrollArea3').bind('click focus', function(){
+                    // select this area
+                    selectArea(this);
+                    return false;
+                }).bind("reinit", function(e, initial){
+                    // we use this custom event to (re)init the control
+                    if (initial)
+                    {
+                        // initial init with custom values
+                        $(this).aciScrollBar({ resizable:true });
+                    }
+                    else
+                    {
+                        // init area with the requested options
+                        var o = initOptions();
+                        loadCss('css/aciScrollBar.' + o.skin + '.css', 'all', function(){
+                            var area = getArea();
+                            $(area).aciScrollBar(o);
+                        });
+                    }
+                }).trigger("reinit", true);
+
+                // bind 'resize' to handle area resize
+                $('.scroll').bind('resize', function(e, data){
+					// limit to max 500/300
+					var w = Math.min(data.width, 500);
+					var h = Math.min(data.height, 300);
+                    // print out current values
+                    $('#width-now').val(w);
+                    $('#height-now').val(h);
+                    // do the resize
+                    $(this).width(w).height(h);
+					// stop event to reach a 'parent' scroll area
+					return false;
+                });
+
+                // init scroll area #4
+                $('.scrollArea4').bind('click focus', function(){
+                    // select this area
+                    selectArea(this);
+                    return false;
+                }).bind("reinit", function(e, initial){
+                    // we use this custom event to (re)init the control
+                    if (initial)
+                    {
+                        // initial init with default values
+                        $(this).aciScrollBar();
+                    }
+                    else
+                    {
+                        // init area with the requested options
+                        var o = initOptions();
+                        loadCss('css/aciScrollBar.' + o.skin + '.css', 'all', function(){
+                            var area = getArea();
+                            $(area).aciScrollBar(o);
+                        });
+                    }
+                }).trigger("reinit", true);
+
+                // add content to the selected area
+                $('#content-add').click(function(){
+                    var html = $('#add-content').val();
+                    // we add the content to the container we used to get the padding
+                    var area = getArea();
+                    area.find('.contentPadding:first').append(html);
+                });
+
+                // remove the content from the selected area
+                $('#content-del').click(function(){
+                    var area = getArea();
+                    area.find('.contentPadding:first').html("");
+                });
+
+                // init selected scroll area with the requested options (using the custom event)
+                $('#do-init').click(function(){
+                    var area = getArea();
+                    area.trigger("reinit");
+                });
+
+                // destroy selected scroll area
+                $('#do-destroy').click(function(){
+                    var area = getArea();
+                    area.aciScrollBar('destroy');
+                });
+
+                // update skin for the selected scroll area :)
+                $('#skin-css').change(function(){
+                    loadCss('css/aciScrollBar.' + $('#skin-css').val() + '.css', 'all', function(){
+                        var area = getArea();
+                        area.aciScrollBar('skin', $('#skin-css').val());
+                    });
+                });
+
+                // set outer padding
+                $("#outerPadding-Top").keyup(function(){
+                    var area = getArea();
+                    area.css("padding-top", parseInt($(this).val()));
+                });
+                $("#outerPadding-Right").keyup(function(){
+                    var area = getArea();
+                    area.css("padding-right", parseInt($(this).val()));
+                });
+                $("#outerPadding-Bottom").keyup(function(){
+                    var area = getArea();
+                    area.css("padding-bottom", parseInt($(this).val()));
+                });
+                $("#outerPadding-Left").keyup(function(){
+                    var area = getArea();
+                    area.css("padding-left", parseInt($(this).val()));
+                });
+
+                // set inner padding
+                $("#innerPadding-Top").keyup(function(){
+                    var area = getArea();
+                    var inner = area.find(".contentPadding:first");
+                    inner.css("padding-top", parseInt($(this).val()));
+                });
+                $("#innerPadding-Right").keyup(function(){
+                    var area = getArea();
+                    var inner = area.find(".contentPadding:first");
+                    inner.css("padding-right", parseInt($(this).val()));
+                });
+                $("#innerPadding-Bottom").keyup(function(){
+                    var area = getArea();
+                    var inner = area.find(".contentPadding:first");
+                    inner.css("padding-bottom", parseInt($(this).val()));
+                });
+                $("#innerPadding-Left").keyup(function(){
+                    var area = getArea();
+                    var inner = area.find(".contentPadding:first");
+                    inner.css("padding-left", parseInt($(this).val()));
+                });
+
+                // bind 'scroll' to update the display
+                $(".scroll").bind('scroll', function(e){
+					var l = $(this).aciScrollBar('container').scrollLeft();
+					var t = $(this).aciScrollBar('container').scrollTop();
+                    // print out current position
+                    $('#position-left').val(l);
+                    $('#position-top').val(t);
+                    // stop event to reach a 'parent' scroll area
+                    return false;
+                });
+
+            });
+
+            -->
+        </script>
+    </body>
+</html>

@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+/*
+
+aciScrollBar "Office" Theme
+http://acoderinsights.ro/
+
+Author: Dragos Ursu
+Date: Fri Feb 17 20:05 2012 +0200
+
+*/
+
+.aciScrollBar.office {
+	overflow:hidden;
+	position:relative;
+	z-index:10001;
+	border-color:#B0CBEF;
+}
+
+.aciSb_cnt.office {
+	position:relative;
+	overflow:hidden;
+}
+
+/* bars */
+
+.aciSb_bar_v.office,
+.aciSb_bar_h.office {
+	z-index:10002;
+	background-color:#FFF;
+}
+
+.aciSb_bar_v.office {
+	width:16px;
+}
+
+.aciSb_bar_h.office {
+	height:16px;
+}
+
+.aciSb_grip.office {
+	height:0;
+	width:0;
+}
+
+.aciSb_resize.office {
+	z-index:10002; 
+	background:url(../image/aciScrollBar.office/resize.png) 0 0 no-repeat;
+}
+
+.aciSb_resize.office.aciSb_gray {
+	background-image:none;
+	background-color:#C2D9F7;
+}
+
+.aciSb_resize.office.aciSb_ontl {
+	background-position:0 0;
+	cursor:nw-resize;
+}
+
+.aciSb_resize.office.aciSb_ontr {
+	background-position:0 -16px;
+	cursor:ne-resize;
+}
+
+.aciSb_resize.office.aciSb_onbr {
+	background-position:0 -32px;
+	cursor:se-resize;
+}
+
+.aciSb_resize.office.aciSb_onbl {
+	background-position:0 -48px;
+	cursor:sw-resize;
+}
+
+/* arrow */
+
+.aciSb_arrow_l.office,
+.aciSb_arrow_t.office,
+.aciSb_arrow_r.office,
+.aciSb_arrow_b.office {
+	width:16px;
+	height:16px;
+}
+
+.aciSb_arrow_l.office {
+	background:url(../image/aciScrollBar.office/arrow_l.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_t.office {
+	background:url(../image/aciScrollBar.office/arrow_t.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_r.office {
+	background:url(../image/aciScrollBar.office/arrow_r.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_b.office {
+	background:url(../image/aciScrollBar.office/arrow_b.png) 0 0 no-repeat;
+}
+
+/* track */
+
+.aciSb_track_h.office {
+	background:url(../image/aciScrollBar.office/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_v.office {
+	background:url(../image/aciScrollBar.office/track_v.png) 0 0 repeat-y;
+}
+
+.aciSb_track_l.office,
+.aciSb_track_r.office {
+	background:url(../image/aciScrollBar.office/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_t.office,
+.aciSb_track_b.office {
+	background:url(../image/aciScrollBar.office/track_v.png) 0 0 repeat-y;
+}
+
+/* space */
+
+.aciSb_space_t.office,
+.aciSb_space_b.office {
+	height:0;
+}
+
+.aciSb_space_l.office,
+.aciSb_space_r.office {
+	width:0;
+}
+
+/* drag */
+
+.aciSb_drag_l.office {
+	width:4px;
+	background:url(../image/aciScrollBar.office/drag_l.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_h.office {
+	background:url(../image/aciScrollBar.office/drag_h.png) 0 0 repeat-x;	
+}
+
+.aciSb_drag_hg.office {
+	width:10px;
+	background:url(../image/aciScrollBar.office/drag_hg.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_r.office {
+	width:5px;
+	background:url(../image/aciScrollBar.office/drag_r.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_t.office {
+	height:5px;
+	background:url(../image/aciScrollBar.office/drag_t.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_v.office {
+	background:url(../image/aciScrollBar.office/drag_v.png) 0 0 repeat-y;		
+}
+
+.aciSb_drag_vg.office {
+	height:10px;
+	background:url(../image/aciScrollBar.office/drag_vg.png) 0 0 no-repeat;		
+}
+
+.aciSb_drag_b.office {
+	height:4px;
+	background:url(../image/aciScrollBar.office/drag_b.png) 0 0 no-repeat;		
+}
+
+/* status */
+
+.aciSb_eover .aciSb_arrow_l.office,
+.aciSb_eover .aciSb_arrow_r.office,
+.aciSb_eover .aciSb_arrow_t.office,
+.aciSb_eover .aciSb_arrow_b.office {
+	background-position:0 -16px;
+}
+
+.aciSb_arrow_l.office.aciSb_over,
+.aciSb_arrow_r.office.aciSb_over,
+.aciSb_arrow_t.office.aciSb_over,
+.aciSb_arrow_b.office.aciSb_over {
+	background-position:0 -32px;
+}
+
+.aciSb_arrow_l.office.aciSb_sel,
+.aciSb_arrow_r.office.aciSb_sel,
+.aciSb_arrow_t.office.aciSb_sel,
+.aciSb_arrow_b.office.aciSb_sel {
+	background-position:0 -48px;
+}
+
+.aciSb_gray .aciSb_arrow_l.office,
+.aciSb_gray .aciSb_arrow_r.office,
+.aciSb_gray .aciSb_arrow_t.office,
+.aciSb_gray .aciSb_arrow_b.office {
+	background-position:0 -64px;
+}
+
+.aciSb_over .aciSb_drag_l.office,
+.aciSb_over .aciSb_drag_h.office,
+.aciSb_over .aciSb_drag_hg.office,
+.aciSb_over .aciSb_drag_r.office {
+	background-position:0 -16px;
+}
+
+.aciSb_over .aciSb_drag_t.office,
+.aciSb_over .aciSb_drag_v.office,
+.aciSb_over .aciSb_drag_vg.office,
+.aciSb_over .aciSb_drag_b.office {
+	background-position:-16px 0;
+}
+
+.aciSb_sel .aciSb_drag_l.office,
+.aciSb_sel .aciSb_drag_h.office,
+.aciSb_sel .aciSb_drag_hg.office,
+.aciSb_sel .aciSb_drag_r.office {
+	background-position:0 -32px;
+}
+
+.aciSb_sel .aciSb_drag_t.office,
+.aciSb_sel .aciSb_drag_v.office,
+.aciSb_sel .aciSb_drag_vg.office,
+.aciSb_sel .aciSb_drag_b.office {
+	background-position:-32px 0;
+}
+
+.aciSb_track_l.aciSb_sel.office,
+.aciSb_track_r.aciSb_sel.office  {
+	background-position:0 -16px;
+}
+
+.aciSb_track_t.aciSb_sel.office,
+.aciSb_track_b.aciSb_sel.office {
+	background-position:-16px 0;
+}

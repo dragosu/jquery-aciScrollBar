@@ -1,0 +1,198 @@
+@charset "utf-8";
+
+/*
+
+aciScrollBar "W2K" Theme
+http://acoderinsights.ro/
+
+Author: Dragos Ursu
+Date: Fri Feb 17 20:05 2012 +0200
+
+*/
+
+.aciScrollBar.w2k {
+	overflow:hidden;
+	position:relative;
+	z-index:10001;
+	border-color:#CCCCCC;
+}
+
+.aciSb_cnt.w2k {
+	position:relative;
+	overflow:hidden;
+}
+
+/* bars */
+
+.aciSb_bar_v.w2k,
+.aciSb_bar_h.w2k {
+	z-index:10002;
+	background-color:#FFF;
+}
+
+.aciSb_bar_v.w2k {
+	width:16px;
+}
+
+.aciSb_bar_h.w2k {
+	height:16px;
+}
+
+.aciSb_grip.w2k {
+	height:0;
+	width:0;
+}
+
+.aciSb_resize.w2k {
+	z-index:10002; 
+	background:url(../image/aciScrollBar.w2k/resize.png) 0 0 no-repeat;
+}
+
+.aciSb_resize.w2k.aciSb_gray {
+	background-image:none;
+	background-color:#ECE9D8;
+}
+
+.aciSb_resize.w2k.aciSb_ontl {
+	background-position:0 0;
+	cursor:nw-resize;
+}
+
+.aciSb_resize.w2k.aciSb_ontr {
+	background-position:0 -16px;
+	cursor:ne-resize;
+}
+
+.aciSb_resize.w2k.aciSb_onbr {
+	background-position:0 -32px;
+	cursor:se-resize;
+}
+
+.aciSb_resize.w2k.aciSb_onbl {
+	background-position:0 -48px;
+	cursor:sw-resize;
+}
+
+/* arrow */
+
+.aciSb_arrow_l.w2k,
+.aciSb_arrow_t.w2k,
+.aciSb_arrow_r.w2k,
+.aciSb_arrow_b.w2k {
+	width:16px;
+	height:16px;
+}
+
+.aciSb_arrow_l.w2k {
+	background:url(../image/aciScrollBar.w2k/arrow_l.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_t.w2k {
+	background:url(../image/aciScrollBar.w2k/arrow_t.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_r.w2k {
+	background:url(../image/aciScrollBar.w2k/arrow_r.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_b.w2k {
+	background:url(../image/aciScrollBar.w2k/arrow_b.png) 0 0 no-repeat;
+}
+
+/* track */
+
+.aciSb_track_h.w2k {
+	background:url(../image/aciScrollBar.w2k/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_v.w2k {
+	background:url(../image/aciScrollBar.w2k/track_v.png) 0 0 repeat-y;
+}
+
+.aciSb_track_l.w2k,
+.aciSb_track_r.w2k {
+	background:url(../image/aciScrollBar.w2k/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_t.w2k,
+.aciSb_track_b.w2k {
+	background:url(../image/aciScrollBar.w2k/track_v.png) 0 0 repeat-y;
+}
+
+/* space */
+
+.aciSb_space_t.w2k,
+.aciSb_space_b.w2k {
+	height:0;
+}
+
+.aciSb_space_l.w2k,
+.aciSb_space_r.w2k {
+	width:0;
+}
+
+/* drag */
+
+.aciSb_drag_l.w2k {
+	width:4px;
+	background:url(../image/aciScrollBar.w2k/drag_l.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_h.w2k {
+	background:url(../image/aciScrollBar.w2k/drag_h.png) 0 0 repeat-x;	
+}
+
+.aciSb_drag_hg.w2k {
+	width:8px;
+	background:url(../image/aciScrollBar.w2k/drag_hg.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_r.w2k {
+	width:5px;
+	background:url(../image/aciScrollBar.w2k/drag_r.png) 0 0 no-repeat;
+}
+
+.aciSb_drag_t.w2k {
+	height:5px;
+	background:url(../image/aciScrollBar.w2k/drag_t.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_v.w2k {
+	background:url(../image/aciScrollBar.w2k/drag_v.png) 0 0 repeat-y;		
+}
+
+.aciSb_drag_vg.w2k {
+	height:8px;
+	background:url(../image/aciScrollBar.w2k/drag_vg.png) 0 0 no-repeat;		
+}
+
+.aciSb_drag_b.w2k {
+	height:4px;
+	background:url(../image/aciScrollBar.w2k/drag_b.png) 0 0 no-repeat;		
+}
+
+/* status */
+
+.aciSb_arrow_l.w2k.aciSb_sel,
+.aciSb_arrow_r.w2k.aciSb_sel,
+.aciSb_arrow_t.w2k.aciSb_sel,
+.aciSb_arrow_b.w2k.aciSb_sel {
+	background-position:0 -16px;
+}
+
+.aciSb_gray .aciSb_arrow_l.w2k,
+.aciSb_gray .aciSb_arrow_r.w2k,
+.aciSb_gray .aciSb_arrow_t.w2k,
+.aciSb_gray .aciSb_arrow_b.w2k {
+	background-position:0 -32px;
+}
+
+.aciSb_track_l.w2k.aciSb_sel,
+.aciSb_track_r.w2k.aciSb_sel {
+	background-position:0 -16px;
+}
+
+.aciSb_track_t.w2k.aciSb_sel,
+.aciSb_track_b.w2k.aciSb_sel {
+	background-position:-16px 0;
+}

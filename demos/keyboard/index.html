@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="language" content="en" />
+<meta name="robots" content="noindex, follow" />
+<title>Keyboard events - aciScrollBar demo - Cross-browser jQuery scrollbars - Mouse wheel and touch enabled</title>
+<link rel="stylesheet" type="text/css" href="../../css/aciScrollBar.desk.css" media="all" />
+<script type="text/javascript" src="../../js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="../../js/jquery.touchSwipe-1.2.5.js"></script>
+<script type="text/javascript" src="../../js/jquery.aciScrollBar.js"></script>
+<style type="text/css">
+html, body {
+	height:100%;
+}
+body {
+	margin:0;
+	padding:0;
+	color: #000;
+}
+p {
+	margin:25px;
+	clear:both;
+}
+p.scroll {
+	overflow:auto;
+	margin:25px;
+	width:450px;
+	height:350px;
+	border:1px solid #CCC;
+	padding:4px;
+	/* enable the next line to hide the outline once we get the focus */
+	/*outline:none;*/
+}
+.scroll img {
+	margin:20px;	
+}
+</style>
+<!-- just for syntax highlighting -->
+<link rel="stylesheet" type="text/css" href="../jquery.snippet.css" media="all" />
+<script type="text/javascript" src="../jquery.snippet.js"></script>
+<script type="text/javascript" src="../helper.js"></script>
+<!-- /just for syntax highlighting -->
+</head>
+<body>
+<script type="text/javascript">
+
+$().ready(function(){
+
+	/* by default keyboard and mouse wheel events are processed */
+	
+	$('.scroll.a1').aciScrollBar();
+	
+	/* we disable keyboard and mouse wheel */
+	
+	$('.scroll.a2').aciScrollBar({ 
+		bindKeyboard: false, 
+		bindMouse: false
+	});
+
+});
+
+</script>
+<p><b>By default both keyboard and mouse events are processed. We need extra plugins (included in the download package) for mouse wheel scrolling and touch devices. If you want you can disable both keyboard events processing and mouse wheel. To be able to scroll by keyboard we need to have focus on the element that need scrolling. Note 'tabIndex' set in HTML for each of the scrolling areas, once in place we will receive focus (when we click on the area or when using the TAB key) and keyboard events on the element. Once focused on a area, press the keys UP, DOWN, LEFT, RIGHT, PAGE UP, PAGE DOWN, HOME or END.</b></p>
+<p tabIndex="0" class="scroll a1"><b>Area with class: '.scroll.a1' using default options.</b><br /><img src="../big-test-image.png" border="0" alt="Big test image" /><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit orci in arcu semper sodales ultrices velit laoreet. Etiam elementum, ligula iaculis dictum tempor, mi augue ultrices libero, sed adipiscing nisi lacus quis enim. Phasellus condimentum mi quis risus mollis a malesuada metus rutrum. Phasellus porttitor mi quis dui aliquam at vulputate tellus tempus. Morbi quam velit, blandit quis elementum non, lacinia vitae risus. Aliquam erat volutpat. Nullam vitae nunc risus, quis dictum lorem. Integer sit amet urna laoreet nunc dignissim laoreet. Morbi suscipit elit et dolor porttitor non porttitor augue tristique. Cras malesuada accumsan sapien. Nunc congue, lectus vel elementum rutrum, magna lectus volutpat augue, quis sollicitudin mauris purus vitae eros. Nulla in nisl in leo pretium ultricies. Nulla viverra nulla id nisl viverra adipiscing. Fusce id consectetur lorem. Vivamus scelerisque tortor at metus consequat tempus consectetur sit amet purus. Duis ultrices gravida viverra.</p>
+
+<!-- just for syntax highlighting -->
+<pre class="code-css"></pre>
+<pre class="code-js"></pre>
+<script type="text/javascript">
+
+helper();
+
+</script>
+<!-- /just for syntax highlighting -->
+
+<p tabIndex="0" class="scroll a2"><b>Area with class: '.scroll.a2' have disabled keyboard and mouse wheel scrolling.</b><br /><img src="../big-test-image.png" border="0" alt="Big test image" /><br />Mauris pretium tempus mi, id hendrerit turpis volutpat sit amet. Nulla enim erat, eleifend at rhoncus blandit, eleifend a ipsum. Aenean vel auctor enim. Nam mi nibh, hendrerit non molestie vitae, venenatis id nunc. Fusce lacus augue, suscipit at facilisis nec, rhoncus vel justo. Quisque turpis nunc, accumsan a hendrerit vitae, venenatis malesuada est. Integer a augue at augue vehicula feugiat at vel velit. Duis lobortis, est eget pharetra adipiscing, ligula tellus hendrerit mauris, nec pharetra nisi metus at libero.</p>
+
+</body>
+</html>

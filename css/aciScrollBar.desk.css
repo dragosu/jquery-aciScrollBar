@@ -1,0 +1,193 @@
+@charset "utf-8";
+
+/*
+
+aciScrollBar "Desk" Theme
+http://acoderinsights.ro/
+
+Author: Dragos Ursu
+Date: Fri Feb 17 20:05 2012 +0200
+
+*/
+
+.aciScrollBar.desk {
+	overflow:hidden;
+	position:relative;
+	z-index:10001;
+	border-color:#706D6D;
+}
+
+.aciSb_cnt.desk {
+	position:relative;
+	overflow:hidden;
+}
+
+/* bars */
+
+.aciSb_bar_v.desk,
+.aciSb_bar_h.desk {
+	z-index:10002;
+}
+
+.aciSb_bar_v.desk {
+	width:16px;
+}
+
+.aciSb_bar_h.desk {
+	height:16px;
+}
+
+.aciSb_grip.desk {
+	display:block;
+	border:1px solid #F00;
+	height:16px;
+	width:16px;
+}
+
+.aciSb_resize.desk {
+	z-index:10002; 
+	background:url(../image/aciScrollBar.desk/resize.png) 0 0 no-repeat;
+}
+
+.aciSb_resize.desk.aciSb_gray {
+	background-image:none;
+}
+
+.aciSb_resize.desk.aciSb_ontl {
+	cursor:nw-resize;
+}
+
+.aciSb_resize.desk.aciSb_ontr {
+	cursor:ne-resize;
+}
+
+.aciSb_resize.desk.aciSb_onbr {
+	cursor:se-resize;
+}
+
+.aciSb_resize.desk.aciSb_onbl {
+	cursor:sw-resize;
+}
+
+/* arrow */
+
+.aciSb_arrow_l.desk,
+.aciSb_arrow_t.desk,
+.aciSb_arrow_r.desk,
+.aciSb_arrow_b.desk {
+	width:16px;
+	height:16px;
+}
+
+.aciSb_arrow_l.desk {
+	background:url(../image/aciScrollBar.desk/arrow_l.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_t.desk {
+	background:url(../image/aciScrollBar.desk/arrow_t.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_r.desk {
+	background:url(../image/aciScrollBar.desk/arrow_r.png) 0 0 no-repeat;
+}
+
+.aciSb_arrow_b.desk {
+	background:url(../image/aciScrollBar.desk/arrow_b.png) 0 0 no-repeat;
+}
+
+/* track */
+
+.aciSb_track_h.desk {
+	background:url(../image/aciScrollBar.desk/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_v.desk {
+	background:url(../image/aciScrollBar.desk/track_v.png) 0 0 repeat-y;
+}
+
+.aciSb_track_l.desk,
+.aciSb_track_r.desk {
+	background:url(../image/aciScrollBar.desk/track_h.png) 0 0 repeat-x;
+}
+
+.aciSb_track_t.desk,
+.aciSb_track_b.desk {
+	background:url(../image/aciScrollBar.desk/track_v.png) 0 0 repeat-y;
+}
+
+/* space */
+
+.aciSb_space_t.desk {
+	height:8px;
+	background:url(../image/aciScrollBar.desk/space_t.png) 0 0 no-repeat;
+}
+
+.aciSb_space_b.desk {
+	height:8px;
+	background:url(../image/aciScrollBar.desk/space_b.png) 0 0 no-repeat;
+}
+
+.aciSb_space_l.desk {
+	width:8px;
+	background:url(../image/aciScrollBar.desk/space_l.png) 0 0 no-repeat;
+}
+
+.aciSb_space_r.desk {
+	width:8px;
+	background:url(../image/aciScrollBar.desk/space_r.png) 0 0 no-repeat;
+}
+
+/* drag */
+
+.aciSb_drag_l.desk {
+	width:0;
+}
+
+.aciSb_drag_hg.desk {
+	width:16px;
+	background:url(../image/aciScrollBar.desk/drag_g.png) 0 0 no-repeat;	
+}
+
+.aciSb_drag_r.desk {
+	width:0;
+}
+
+.aciSb_drag_t.desk {
+	height:0;
+}
+
+.aciSb_drag_vg.desk {
+	height:16px;
+	background:url(../image/aciScrollBar.desk/drag_g.png) 0 0 no-repeat;		
+}
+
+.aciSb_drag_b.desk {
+	height:0;
+}
+
+/* status */
+
+.aciSb_gray .aciSb_arrow_l.desk,
+.aciSb_gray .aciSb_arrow_r.desk,
+.aciSb_gray .aciSb_arrow_t.desk,
+.aciSb_gray .aciSb_arrow_b.desk {
+	background-position:0 -16px;
+}
+
+.aciSb_gray .aciSb_space_t.desk,
+.aciSb_gray .aciSb_space_b.desk {
+	background-position:0 -8px;
+}
+
+.aciSb_gray .aciSb_space_l.desk,
+.aciSb_gray .aciSb_space_r.desk {
+	background-position:-8px 0;
+}
+
+.aciSb_gray .aciSb_track_h.desk {
+	background-position:0 -16px;
+}
+
+.aciSb_gray .aciSb_track_v.desk {
+	background-position:-16px 0;
+}
