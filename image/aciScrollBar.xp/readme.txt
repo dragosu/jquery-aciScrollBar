@@ -1,5 +1,5 @@
 
-aciScrollBar "XP" Theme
+aciScrollBar "xp" Theme
 http://acoderinsights.ro/
 
 Author: Dragos Ursu

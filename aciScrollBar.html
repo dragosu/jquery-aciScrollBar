@@ -51,14 +51,14 @@
                 margin-bottom:20px;
                 height:200px;
                 width:200px;
-				overflow:scroll;
+                overflow:scroll;
             }
             .scrollArea4 {
                 float:left;
                 margin-right:20px;
                 height:200px;
                 width:200px;
-            }	
+            }
             .clr {
                 clear:both;
             }
@@ -118,7 +118,7 @@
                 end </div>
             <!-- /contentPadding -->
         </div>
-        <!-- /scrollArea4 -->   
+        <!-- /scrollArea4 -->
         <div class="clr"></div>
         <br />
         <form action="" target="_self" enctype="application/x-www-form-urlencoded">
@@ -227,17 +227,17 @@
                             </tr>
                         </table></td>
                     <td rowspan="6" align="center" valign="top" bgcolor="#FFFFCC"><strong>Change Control</strong><br />
-                      (in three steps)
-                      <table width="100%" border="0">
-                        <tr>
-                        <td width="90px"></td>
-                          <td align="left">* focus one area (click or use the TAB key);<br />
-* change the current options here;<br />
-* push <strong>Destroy</strong> and <strong>Initialize</strong> (in this order).</td>
-                        </tr>
-                      </table>
-                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
+                        (in three steps)
+                        <table width="100%" border="0">
+                            <tr>
+                                <td width="90px"></td>
+                                <td align="left">* focus one area (click or use the TAB key);<br />
+                                    * change the current options here;<br />
+                                    * push <strong>Destroy</strong> and <strong>Initialize</strong> (in this order).</td>
+                            </tr>
+                        </table>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
                                 <td valign="top"><table width="230" border="0" cellspacing="0" cellpadding="4">
                                         <tr>
                                             <td align="right">bindMouse</td>
@@ -246,7 +246,7 @@
                                         <tr>
                                             <td align="right">bindTouch</td>
                                             <td><input name="o_bindTouch" type="checkbox" id="o_bindTouch" value="1" checked="checked" /></td>
-                                        </tr>                                        
+                                        </tr>
                                         <tr>
                                             <td align="right">bindKeyboard</td>
                                             <td><input name="o_bindKeyboard" type="checkbox" id="o_bindKeyboard" value="1" checked="checked" /></td>
@@ -258,7 +258,7 @@
                                         <tr>
                                             <td align="right">smoothScroll</td>
                                             <td><input name="o_smoothScroll" type="checkbox" id="o_smoothScroll" value="1" /></td>
-                                        </tr>                                
+                                        </tr>
                                         <tr>
                                             <td align="right">delta</td>
                                             <td><input name="o_delta" type="text" id="o_delta" value="20" size="8" maxlength="8" /></td>
@@ -309,7 +309,7 @@
                                                     <option value="bar">bar</option>
                                                     <option value="none">none</option>
                                                 </select></td>
-                                        </tr>                                
+                                        </tr>
                                         <tr>
                                             <td align="right">skin</td>
                                             <td><input name="o_skin" type="text" id="o_skin" value="w7" size="20" maxlength="20" /></td>
@@ -391,11 +391,13 @@
                             <tr>
                                 <td align="center" bgcolor="#F7F7F7"><strong>Skin</strong>
                                     <select name="skin-css" id="skin-css" style="width:120px">
+                                        <option value="newage">newage</option>
+                                        <option value="newagev">newagev</option>
+                                        <option value="desk">desk</option>
                                         <option value="w7">w7</option>
                                         <option value="office">office</option>
                                         <option value="xp">xp</option>
                                         <option value="w2k">w2k</option>
-                                        <option value="desk">desk</option>
                                     </select></td>
                             </tr>
                         </table></td>
@@ -520,7 +522,7 @@
                 $("#o_pageDelay").val(o.pageDelay);
                 $("#o_pageTimer").val(o.pageTimer);
                 $("#o_bindMouse").attr("checked", o.bindMouse);
-				$("#o_bindTouch").attr("checked", o.bindTouch);
+                $("#o_bindTouch").attr("checked", o.bindTouch);
                 $("#o_bindKeyboard").attr("checked", o.bindKeyboard);
                 $("#o_resizable").attr("checked", o.resizable);
                 $("#o_position").val(o.position);
@@ -540,7 +542,7 @@
                     pageDelay:$("#o_pageDelay").val(),
                     pageTimer:$("#o_pageTimer").val(),
                     bindMouse:$("#o_bindMouse").is(":checked"),
-					bindTouch:$("#o_bindTouch").is(":checked"),
+                    bindTouch:$("#o_bindTouch").is(":checked"),
                     bindKeyboard:$("#o_bindKeyboard").is(":checked"),
                     resizable:$("#o_resizable").is(":checked"),
                     position:$("#o_position").val(),
@@ -561,11 +563,11 @@
 
                 // set default skin
                 $("#skin-css").val('desk');
-				
-				// enable 'smoothScroll' by default
-				$.fn.aciScrollBar.defaults.smoothScroll = true;
-				// set default class
-				$.fn.aciScrollBar.defaults.skin = 'desk';
+
+                // enable 'smoothScroll' by default
+                $.fn.aciScrollBar.defaults.smoothScroll = true;
+                // set default class
+                $.fn.aciScrollBar.defaults.skin = 'desk';
 
                 // init scoll area 1
                 $('.scrollArea1').bind('init', function(e){
@@ -584,7 +586,7 @@
                         // init area with the requested options
                         var o = initOptions();
                         loadCss('css/aciScrollBar.' + o.skin + '.css', 'all', function(){
-							// we need to load the .css before we set the skin
+                            // we need to load the .css before we set the skin
                             var area = getArea();
                             $(area).aciScrollBar(o);
                         });
@@ -660,8 +662,8 @@
 
                 // resize the scroll area
                 $('#do-resize').click(function(){
-					var w = parseInt($('#new-width').val());
-					var h = parseInt($('#new-height').val());
+                    var w = parseInt($('#new-width').val());
+                    var h = parseInt($('#new-height').val());
                     var area = getArea();
                     area.width(w).height(h);
                     // print out current values
@@ -717,16 +719,16 @@
 
                 // bind 'resize' to handle area resize
                 $('.scroll').bind('resize', function(e, data){
-					// limit to max 500/300
-					var w = Math.min(data.width, 500);
-					var h = Math.min(data.height, 300);
+                    // limit from min 100/100 to max 500/300
+                    var w = Math.max(Math.min(data.width, 500), 100);
+                    var h = Math.max(Math.min(data.height, 300), 100);
                     // print out current values
                     $('#width-now').val(w);
                     $('#height-now').val(h);
                     // do the resize
                     $(this).width(w).height(h);
-					// stop event to reach a 'parent' scroll area
-					return false;
+                    // stop event to reach a 'parent' scroll area
+                    return false;
                 });
 
                 // init scroll area #4
@@ -828,8 +830,8 @@
 
                 // bind 'scroll' to update the display
                 $(".scroll").bind('scroll', function(e){
-					var l = $(this).aciScrollBar('container').scrollLeft();
-					var t = $(this).aciScrollBar('container').scrollTop();
+                    var l = $(this).aciScrollBar('container').scrollLeft();
+                    var t = $(this).aciScrollBar('container').scrollTop();
                     // print out current position
                     $('#position-left').val(l);
                     $('#position-top').val(t);

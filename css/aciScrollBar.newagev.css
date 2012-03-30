@@ -1,0 +1,166 @@
+@charset "utf-8";
+
+/*
+
+aciScrollBar "newagevv" theme
+http://acoderinsights.ro/
+
+Author: Dragos Ursu
+Date: Fri mar 29 19:20 2012 +0200
+
+*/
+
+.aciScrollBar.newagev {
+	overflow:hidden;
+	position:relative;
+	z-index:10001;
+	border-color:#CCC;
+}
+
+.aciSb_cnt.newagev {
+	position:relative;
+	overflow:hidden;
+}
+
+/* bars */
+
+.aciSb_bar_v.newagev,
+.aciSb_bar_h.newagev {
+	z-index:10002;
+}
+
+.aciSb_bar_v.newagev {
+	width:11px;
+}
+
+.aciSb_bar_h.newagev {
+	height:11px;
+}
+
+.aciSb_grip.newagev {
+	height:0;
+	width:0;
+}
+
+.aciSb_resize.newagev {
+	z-index:10002; 
+}
+
+.aciSb_resize.newagev.aciSb_ontr {
+	background:url(../image/aciScrollBar.newagev/big_v.png) 0 -89px no-repeat;
+	cursor:ne-resize;
+}
+
+.aciSb_resize.newagev.aciSb_onbl {
+	background:url(../image/aciScrollBar.newagev/big_v.png) 0 -88px no-repeat;
+	cursor:sw-resize;
+}
+
+.aciSb_resize.newagev.aciSb_ontl {
+	background:url(../image/aciScrollBar.newagev/big_h.png) -89px -1px no-repeat;
+	cursor:nw-resize;
+}
+
+.aciSb_resize.newagev.aciSb_onbr {
+	background:url(../image/aciScrollBar.newagev/big_h.png) -89px 0 no-repeat;
+	cursor:se-resize;
+}
+
+.aciSb_resize.newagev.aciSb_gray {
+	background-image:none;
+}
+
+/* arrow */
+
+.aciSb_arrow_l.newagev,
+.aciSb_arrow_r.newagev,
+.aciSb_arrow_t.newagev,
+.aciSb_arrow_b.newagev {
+	width:0;
+	height:0;
+}
+
+/* track */
+
+.aciSb_track_h.newagev {
+	background:url(../image/aciScrollBar.newagev/big_h.png) 0 -66px repeat-x;
+}
+
+.aciSb_track_v.newagev {
+	background:url(../image/aciScrollBar.newagev/big_v.png) -66px 0 repeat-y;
+}
+
+/* space */
+
+.aciSb_space_t.newagev {
+	height:4px;
+	background:url(../image/aciScrollBar.newagev/big_v.png) -55px 0 no-repeat;
+}
+
+.aciSb_space_b.newagev {
+	height:4px;
+	background:url(../image/aciScrollBar.newagev/big_v.png) -77px 0 no-repeat;
+}
+
+.aciSb_space_l.newagev {
+	width:4px;
+	background:url(../image/aciScrollBar.newagev/big_h.png) 0 -55px no-repeat;
+}
+
+.aciSb_space_r.newagev {
+	width:4px;
+	background:url(../image/aciScrollBar.newagev/big_h.png) 0 -77px no-repeat;
+}
+
+/* drag */
+
+.aciSb_drag_l.newagev {
+	width:26px;
+	background:url(../image/aciScrollBar.newagev/big_h.png) 0 -11px no-repeat;	
+}
+
+.aciSb_drag_h.newagev {
+	min-width:9px;
+	background:url(../image/aciScrollBar.newagev/big_h.png) 0 -22px repeat-x;
+}
+
+.aciSb_drag_hg.newagev {
+	width:9px;
+	background:url(../image/aciScrollBar.newagev/big_h.png) 0 -44px no-repeat;	
+}
+
+.aciSb_drag_r.newagev {
+	width:26px;
+	background:url(../image/aciScrollBar.newagev/big_h.png) 0 -33px no-repeat;	
+}
+
+.aciSb_drag_t.newagev {
+	height:26px;
+	background:url(../image/aciScrollBar.newagev/big_v.png) -11px 0 no-repeat;
+}
+
+.aciSb_drag_v.newagev {
+	min-height:9px;
+	background:url(../image/aciScrollBar.newagev/big_v.png) -22px 0 repeat-y;
+}
+
+.aciSb_drag_vg.newagev {
+	height:9px;
+	background:url(../image/aciScrollBar.newagev/big_v.png) -44px 0 no-repeat;
+}
+
+.aciSb_drag_b.newagev {
+	height:27px;
+	background:url(../image/aciScrollBar.newagev/big_v.png) -33px 0 no-repeat;
+}
+
+/* status */
+
+.aciSb_gray .aciSb_space_t.newagev,
+.aciSb_gray .aciSb_space_b.newagev, 
+.aciSb_gray .aciSb_space_l.newagev,
+.aciSb_gray .aciSb_space_r.newagev,
+.aciSb_gray .aciSb_track_h.newagev,
+.aciSb_gray .aciSb_track_v.newagev {
+	background:none;
+}

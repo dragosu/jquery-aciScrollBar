@@ -1,5 +1,5 @@
 
-aciScrollBar "Office" Theme
+aciScrollBar "office" Theme
 http://acoderinsights.ro/
 
 Author: Dragos Ursu

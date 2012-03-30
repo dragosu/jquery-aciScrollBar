@@ -1,5 +1,5 @@
 
-aciScrollBar "W2K" Theme
+aciScrollBar "w2K" Theme
 http://acoderinsights.ro/
 
 Author: Dragos Ursu

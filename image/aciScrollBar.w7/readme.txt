@@ -1,5 +1,5 @@
 
-aciScrollBar "W7" Theme
+aciScrollBar "w7" Theme
 http://acoderinsights.ro/
 
 Author: Dragos Ursu

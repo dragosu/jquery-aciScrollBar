@@ -1,6 +1,6 @@
 
 /*
- * aciScrollBar jQuery Plugin v2.1
+ * aciScrollBar jQuery Plugin v2.2
  * http://acoderinsights.ro
  *
  * Copyright (c) 2012 Dragos Ursu
@@ -10,7 +10,7 @@
  * + (optional) MouseWheel Plugin (for mouse wheel support) https://github.com/brandonaaron/jquery-mousewheel
  * + (optional) TouchSwipe Plugin (for touch based devices) https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
  *
- * Date: Fri Feb 24 20:25 2012 +0200
+ * Date: Fri Mar 29 19:20 2012 +0200
  */
 
 (function($){
@@ -33,20 +33,20 @@
 
     // default options
     $.fn.aciScrollBar.defaults = {
-            delta: 40,                        // the height of a virtual line (in pixels)
-            lineDelay: 400,                   // the delay in milliseconds between the scroll of the first line and the rest (when scrolling by lines)
-            lineTimer: 40,                    // the delay in milliseconds when scrolling to a new line in the same scrolling sequence (except the first line)
-            pageDelay: 400,                   // the delay in milliseconds between the scroll of the first page and the rest (when scrolling by pages)
-            pageTimer: 200,                   // the delay in milliseconds when scrolling to a new page in the same scrolling sequence (except the first page)
-            bindMouse: true,                  // should we handle mouse events? (only for 'mousewheel', the scrollbar buttons will always work with the mouse!)
-			bindTouch: false,				  // should we handle touch events? (only for content, the bars will always work with the touch!)
-            bindKeyboard: true,               // should we handle keyboard events? (scrolling by keyboard)
-            resizable: false,                 // it is a resisable control? (the 'resize' event must be implemented to actually apply the resize)
-            position: 'bottom-right',         // where we should have the scrollbars? (combination of two words: 'top/left/bottom/right')
-            verticalBar: 'up-bar-down',       // what is the button order for the vertical bar? (combination of 'up/bar/down' or 'none' to hide the vertical scrollbar)
-            horizontalBar: 'left-bar-right',  // what is the button order for the horizontal bar? (combination of 'left/bar/right' or 'none' to hide the horizontal scrollbar)
-            smoothScroll: false,              // should we use smooth scrolling?
-            skin: 'desk'                      // the skin name (.css  must be loaded before initialization)
+        delta: 40,                        // the height of a virtual line (in pixels)
+        lineDelay: 400,                   // the delay in milliseconds between the scroll of the first line and the rest (when scrolling by lines)
+        lineTimer: 40,                    // the delay in milliseconds when scrolling to a new line in the same scrolling sequence (except the first line)
+        pageDelay: 400,                   // the delay in milliseconds between the scroll of the first page and the rest (when scrolling by pages)
+        pageTimer: 200,                   // the delay in milliseconds when scrolling to a new page in the same scrolling sequence (except the first page)
+        bindMouse: true,                  // should we handle mouse events? (only for 'mousewheel', the scrollbar buttons will always work with the mouse!)
+        bindTouch: false,		  // should we handle touch events? (only for content, the bars will always work with the touch!)
+        bindKeyboard: true,               // should we handle keyboard events? (scrolling by keyboard)
+        resizable: false,                 // it is a resisable control? (the 'resize' event must be implemented to actually apply the resize)
+        position: 'bottom-right',         // where we should have the scrollbars? (combination of two words: 'top/left/bottom/right')
+        verticalBar: 'up-bar-down',       // what is the button order for the vertical bar? (combination of 'up/bar/down' or 'none' to hide the vertical scrollbar)
+        horizontalBar: 'left-bar-right',  // what is the button order for the horizontal bar? (combination of 'left/bar/right' or 'none' to hide the horizontal scrollbar)
+        smoothScroll: false,              // should we use smooth scrolling?
+        skin: 'desk'                      // the skin name (.css  must be loaded before initialization)
     };
 
     $.fn._aciScrollBar = function(options, data){
@@ -55,10 +55,9 @@
 
         var _options = $.extend({}, $.fn.aciScrollBar.defaults, options);
 
-        // get grip size (if fixed size)
-        var _gripSize = function (skin)
+        var _blockSize = function (style, skin)
         {
-			// use a dummy element to get sizes from css
+            // use a dummy element to get size
             var dummy = $('.aciSb_dummy');
             if (dummy.length == 0)
             {
@@ -70,26 +69,25 @@
                     overflow:'hidden'
                 });
                 $(document.body).append(dummy);
-                var tmp = $(document.createElement('div'));
-                tmp.addClass('aciSb_grip ' + skin);
-                dummy.append(tmp);
+                dummy.append('<div></div>');
             }
-            else
-            {
-                var tmp = dummy.find('div');
-                tmp.attr('class', 'aciSb_grip ' + skin);
+            var div = dummy.find('div:first').attr({
+                'style':'',
+                'class':style + ' ' + skin
+            });
+            return {
+                'width': div.width(),
+                'height': div.height()
             }
-            $this.data('_grip_w', tmp.width());
-            $this.data('_grip_h', tmp.height());
         };
 
         // init control based on options
         var _initUi = function(){
             if ((typeof options == 'undefined') || (typeof options == 'object'))
             {
-                _customUi();
                 // remember options
                 $this.data('options' + $.aciScrollBar.nameSpace, _options);
+                _customUi();
             }
             // process custom request
             if (typeof options == 'string')
@@ -118,22 +116,21 @@
                             // set/get the skin
                             if (typeof data == 'string')
                             {
-								var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
-								if (initOpts.skin != data)
-								{
-									_gripSize(data);
-									_setClass(initOpts.skin, data);
-									$this.trigger('update', true);
-									initOpts.skin = data;
-									$this.data('options' + $.aciScrollBar.nameSpace, initOpts);
-								}
-								break;
+                                var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
+                                if (initOpts.skin != data)
+                                {
+                                    _setClass(initOpts.skin, data);
+                                    initOpts.skin = data;
+                                    $this.data('options' + $.aciScrollBar.nameSpace, initOpts);
+                                    $this.trigger('update', true);
+                                }
+                                break;
                             }
-							else
-							{
-								var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
-								return initOpts.skin;
-							}
+                            else
+                            {
+                                var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
+                                return initOpts.skin;
+                            }
                         case 'options':
                             // get options
                             return $this.data('options' + $.aciScrollBar.nameSpace);
@@ -158,22 +155,22 @@
                         case 'resizer':
                             // we do not have one
                             return $([]);
-						case 'skin':	
+                        case 'skin':
                             // set/get the skin
                             if (typeof data == 'string')
                             {
-								// nothing to do
-								break;
+                                // nothing to do
+                                break;
                             }
-							else
-							{
-								var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
-								return initOpts ? initOpts.skin : null;
-							}
+                            else
+                            {
+                                var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
+                                return initOpts ? initOpts.skin : null;
+                            }
                         case 'options':
                             // get options
-							var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
-							return initOpts ? initOpts : _options;
+                            var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
+                            return initOpts ? initOpts : _options;
                     }
                 }
             }
@@ -190,6 +187,9 @@
 
         var _setClass = function (oldClass, newClass)
         {
+            $this.find('.aciSb_bar_v:last *').attr('style', '');
+            $this.find('.aciSb_bar_h:last *').attr('style', '');
+            $this.find('.aciSb_resize:last *').attr('style', '');
             _replaceClass($this, oldClass, newClass);
             _replaceClass($this.find('.aciSb_bar_v:last, .aciSb_bar_v:last *'), oldClass, newClass);
             _replaceClass($this.find('.aciSb_bar_h:last, .aciSb_bar_h:last *'), oldClass, newClass);
@@ -201,7 +201,7 @@
         var _destroyUi = function(){
             if ($this.data('customUi' + $.aciScrollBar.nameSpace))
             {
-	            // destroy if initialized
+                // destroy if initialized
                 var cnt = $this.find('.aciSb_cnt:first');
                 // to compute new position
                 var height = cnt.get(0).scrollHeight;
@@ -269,8 +269,6 @@
             $this.get(0).scrollLeft = 0;
             $this.get(0).scrollTop = 0;
 
-            _gripSize(_options.skin);
-
             $this.css('overflow', 'hidden').addClass('aciScrollBar ' + _options.skin);
 
             // wrap content in extra container
@@ -323,50 +321,126 @@
 
             var _resize = _setElement('div', 'aciSb_resize', $this);
 
-            _bar_v.css('position', 'absolute').find('*').css({
-                'position':'absolute',
-                'width':_bar_v.width() + 'px'
-            });
-            _bar_h.css('position', 'absolute').find('*').css({
-                'position':'absolute',
-                'height':_bar_h.height() + 'px'
-            });
-            _resize.css({
-                'position':'absolute',
-                'width':_bar_v.width() + 'px',
-                'height':_bar_h.height() + 'px'
-            });
+            var _size = {}; // cache init & live values
 
-            // get vertical bar width
-            _bar_v.width = function(){
-                if (_bar_v.is(':hidden'))
-                {
-                    return 0;
-                }
-                else
-                {
-                    return $(_bar_v).width();
-                }
+            var _sizeSkin = function(){
+                _bar_v.css('position', 'absolute').find('*').css({
+                    'position':'absolute',
+                    'width':_bar_v.width() + 'px'
+                });
+                _bar_h.css('position', 'absolute').find('*').css({
+                    'position':'absolute',
+                    'height':_bar_h.height() + 'px'
+                });
+                _resize.css({
+                    'position':'absolute',
+                    'width':_bar_v.width() + 'px',
+                    'height':_bar_h.height() + 'px'
+                });
+                var initOpts = $this.data('options' + $.aciScrollBar.nameSpace);
+                var grip = _blockSize('aciSb_grip', initOpts.skin);
+                _size.skin = {
+                    grip_v_h: grip.height,              // fixed vertical grip height
+                    grip_h_w: grip.width,               // fixed horizontal grip width
+                    min_v_h: 0,                         // min vertical grip height
+                    min_h_w: 0,                         // min horizontal grip width
+                    // vertical
+                    bar_v_w: _bar_v.width(),		// vertical bar width
+                    arrow_t_h: _arrow_t.height(),     	// vertical elements height ...
+                    space_t_h: _space_t.height(),
+                    drag_t_h: _drag_t.height(),
+                    drag_vg_h: _drag_vg.height(),
+                    drag_b_h: _drag_b.height(),
+                    space_b_h: _space_b.height(),
+                    arrow_b_h: _arrow_b.height(),
+                    // horizontal
+                    bar_h_h: _bar_h.height(),		// horizontal bar height
+                    arrow_l_w: _arrow_l.width(),	// horizontal elements width ...
+                    space_l_w: _space_l.width(),
+                    drag_l_w: _drag_l.width(),
+                    drag_hg_w: _drag_hg.width(),
+                    drag_r_w: _drag_r.width(),
+                    space_r_w: _space_r.width(),
+                    arrow_r_w: _arrow_r.width(),
+                    // resizer
+                    resize_w: _resize.width(),		// sizer width
+                    resize_h: _resize.height()		// sizer height
+                };
+                _size.skin.min_v_h = _size.skin.drag_t_h + _size.skin.drag_vg_h + _size.skin.drag_b_h;
+                _size.skin.min_h_w = _size.skin.drag_l_w + _size.skin.drag_hg_w + _size.skin.drag_r_w;
             };
 
-            // get horizontal bar height
-            _bar_h.height = function(){
-                if (_bar_h.is(':hidden'))
-                {
-                    return 0;
-                }
-                else
-                {
-                    return $(_bar_h).height();
-                }
-            };
+            // time to cache init values
+            _sizeSkin();
 
-            var _contentWidth = function(){
-                return _container.get(0).scrollWidth;
-            };
-
-            var _contentHeight = function(){
-                return _container.get(0).scrollHeight;
+            var _sizeLive = function(stage){
+                if (stage == 0)
+                {
+                    _size.live = {
+                        pstTop: $this.css('padding-top'),                           // padding top
+                        pstLeft: $this.css('padding-left'),                         // padding left
+                        paddTop: null,                                              // padding top (numeric)
+                        paddLeft: null,                                             // padding left (numeric)
+                        bar_v_w: _bar_v.is(':visible') ? _size.skin.bar_v_w : 0,    // vertical bar width (0 if hidden)
+                        bar_h_h: _bar_h.is(':visible') ? _size.skin.bar_h_h : 0     // horizontal bar height (0 if hidden)
+                    };
+                    _size.live.paddTop = parseInt(_size.live.pstTop);
+                    _size.live.paddLeft = parseInt(_size.live.pstLeft);
+                }
+                if (stage == 1)
+                {
+                    _size.live = {
+                        width: $this.width(),                                       // control width
+                        height: $this.height(),                                     // control height
+                        pstTop: _size.live.pstTop,
+                        pstLeft: _size.live.pstLeft,
+                        paddTop: _size.live.paddTop,
+                        paddLeft: _size.live.paddLeft,
+                        showWidth: _container.width(),                              // content display width
+                        showHeight: _container.height(),                            // content display height
+                        scrollWidth: _container.get(0).scrollWidth,                 // content width
+                        scrollHeight: _container.get(0).scrollHeight,               // content height
+                        bar_v_h: _bar_v.height(),                                   // vertical bar height
+                        bar_v_w: _size.live.bar_v_w,
+                        bar_h_h: _size.live.bar_h_h,
+                        bar_h_w: _bar_h.width(),                                    // horizontal bar width
+                        track_v_h: null,                                            // vertical track height
+                        track_h_w: null,                                            // horizontal track width
+                        drag_vc_h: null,                                            // vertical grip height
+                        drag_hc_w: null,                                            // horizontal grip width
+                        ratio_v: null,                                              // vertical ratio
+                        ratio_h: null                                               // horizontal ratio
+                    };
+                }
+                if (stage == 2)
+                {
+                    _size.live.track_v_h = _track_v.height();
+                    _size.live.track_h_w = _track_h.width();
+                    if (_size.skin.grip_v_h)
+                    {
+                        // fixed grip height
+                        _size.live.drag_vc_h = _size.skin.drag_t_h + _size.skin.grip_v_h + _size.skin.drag_b_h;
+                    }
+                    else
+                    {
+                        // compute by ratio
+                        var ratio = _size.live.track_v_h / Math.max(_size.live.scrollHeight, 1);
+                        _size.live.drag_vc_h = (ratio < 1) ? Math.max(_size.live.track_v_h * ratio, _size.skin.min_v_h) : _size.live.track_v_h;
+                    }
+                    _size.live.ratio_v = (_size.live.track_v_h - _size.live.drag_vc_h) / Math.max(_size.live.scrollHeight - _size.live.showHeight, 1);
+                    if (_size.skin.grip_h_w)
+                    {
+                        // fixed grip width
+                        _size.live.drag_hc_w = _size.skin.drag_l_w + _size.skin.grip_h_w + _size.skin.drag_r_w;
+                    }
+                    else
+                    {
+                        // compute by ratio
+                        var ratio = _size.live.track_h_w / Math.max(_size.live.scrollWidth, 1);
+                        _size.live.drag_hc_w = (ratio < 1) ? Math.max(_size.live.track_h_w * ratio, _size.skin.min_h_w) : _size.live.track_h_w;
+                    }
+                    _size.live.ratio_h = (_size.live.track_h_w - _size.live.drag_hc_w) / Math.max(_size.live.scrollWidth - _size.live.showWidth, 1);
+                }
             };
 
             // show/hide the bars as required
@@ -377,7 +451,7 @@
                 }
                 else
                 {
-                    if (_contentWidth() <= $this.width() - _bar_v.width())
+                    if (_container.get(0).scrollWidth <= $this.width() - (_bar_v.is(':visible') ? _bar_v.width() : 0))
                     {
                         if (!_options.resizable && _hide)
                         {
@@ -399,7 +473,7 @@
                 }
                 else
                 {
-                    if (_contentHeight() <= $this.height() - _bar_h.height())
+                    if (_container.get(0).scrollHeight <= $this.height() - (_bar_h.is(':visible') ? _bar_h.height() : 0))
                     {
                         if (!_options.resizable && _hide)
                         {
@@ -441,88 +515,133 @@
                     break;
             }
 
+            var _vertBar = _options.verticalBar.replace(/[^a-z]/g, '');
+            var _horzBar = _options.horizontalBar.replace(/[^a-z]/g, '');
+
             // (re)init the container (and the bars)
             var _initContainer = function(){
-                _container.css('width', $this.width() + 'px').css('height', $this.height() + 'px');
-                _initBars();
-                _container.css('width', $this.width() - _bar_v.width() + 'px').css('height', $this.height() - _bar_h.height() + 'px');
-                _initBars();
-                _container.css('width', $this.width() - _bar_v.width() + 'px').css('height', $this.height() - _bar_h.height() + 'px');
-                _bar_v.find('*').css('width', _bar_v.width() + 'px');
-                _bar_h.find('*').css('height', _bar_h.height() + 'px');
-                _resize.css({
-                    'width':_bar_v.width() + 'px',
-                    'height':_bar_h.height() + 'px'
+                var width = $this.width();
+                var height = $this.height();
+                _container.css({
+                    'width': width + 'px',
+                    'height': height + 'px'
                 });
-                var hsize = $this.width() - _bar_v.width();
-                var vsize = $this.height() - _bar_h.height();
-                var hpadd = parseInt($this.css('padding-left'));
-                var vpadd = parseInt($this.css('padding-top'));
-                _bar_v.css('height', vsize + 'px').css('left', ((_vert == 1) ? hsize : 0) + hpadd + 'px').css('top', ((_horz == 1) ? 0 : _bar_h.height()) + vpadd + 'px');
-                _bar_h.css('width', hsize + 'px').css('top', ((_horz == 1) ? vsize : 0) + vpadd + 'px').css('left', ((_vert == 1) ? 0 : _bar_v.width()) + hpadd + 'px');
+                _initBars();
+                _container.css({
+                    'width': $this.width() - (_bar_v.is(':visible') ? _size.skin.bar_v_w : 0) + 'px',
+                    'height': $this.height() - (_bar_h.is(':visible') ? _size.skin.bar_h_h : 0) + 'px'
+                });
+                _initBars();
+                var hsize = $this.width() - (_bar_v.is(':visible') ? _size.skin.bar_v_w : 0);
+                var vsize = $this.height() - (_bar_h.is(':visible') ? _size.skin.bar_h_h : 0);
+                _container.css({
+                    'width': hsize + 'px',
+                    'height': vsize + 'px'
+                });
+                // time to cache live values
+                _sizeLive(0);
+                _bar_v.css({
+                    'height': vsize + 'px',
+                    'left': ((_vert == 1) ? hsize : 0) + _size.live.paddLeft + 'px',
+                    'top': ((_horz == 1) ? 0 : _size.live.bar_h_h) + _size.live.paddTop + 'px'
+                });
+                _bar_h.css({
+                    'width': hsize + 'px',
+                    'top': ((_horz == 1) ? vsize : 0) + _size.live.paddTop + 'px',
+                    'left': ((_vert == 1) ? 0 : _size.live.bar_v_w) + _size.live.paddLeft + 'px'
+                });
+                // time to cache live values
+                _sizeLive(1);
                 // vertical bar
-                switch (_options.verticalBar.replace(/[^a-z]/g, ''))
+                switch (_vertBar)
                 {
                     case 'bar':
                         _arrow_t.hide();
                         _space_t.css('top', '0px');
-                        _track_v.css('height', vsize - _space_t.height() - _space_b.height() + 'px').css('top', _space_t.height() + 'px');
-                        _space_b.css('top', _bar_v.height() - _space_b.height() + 'px');
+                        _track_v.css({
+                            'height': vsize - _size.skin.space_t_h - _size.skin.space_b_h + 'px',
+                            'top': _size.skin.space_t_h + 'px'
+                        });
+                        _space_b.css('top', _size.live.bar_v_h - _size.skin.space_b_h + 'px');
                         _arrow_b.hide();
                         break;
                     case 'updownbar':
                         _arrow_t.css('top', '0px');
-                        _arrow_b.css('top', _arrow_t.height() + 'px');
-                        _space_t.css('top', _arrow_t.height() + _arrow_b.height() + 'px');
-                        _track_v.css('height', vsize - _arrow_t.height() - _space_t.height() - _space_b.height() - _arrow_b.height() + 'px').css('top', _arrow_t.height() + _arrow_b.height() + _space_t.height() + 'px');
-                        _space_b.css('top', _bar_v.height() - _space_b.height() + 'px');
+                        _arrow_b.css('top', _size.skin.arrow_t_h + 'px');
+                        _space_t.css('top', _size.skin.arrow_t_h + _size.skin.arrow_b_h + 'px');
+                        _track_v.css({
+                            'height': vsize - _size.skin.arrow_t_h - _size.skin.space_t_h - _size.skin.space_b_h - _size.skin.arrow_b_h + 'px',
+                            'top': _size.skin.arrow_t_h + _size.skin.arrow_b_h + _size.skin.space_t_h + 'px'
+                        });
+                        _space_b.css('top', _size.live.bar_v_h - _size.skin.space_b_h + 'px');
                         break;
                     case 'barupdown':
                         _space_t.css('top', '0px');
-                        _track_v.css('height', vsize - _arrow_t.height() - _space_t.height() - _space_b.height() - _arrow_b.height() + 'px').css('top', _space_t.height() + 'px');
-                        _space_b.css('top', _bar_v.height() - _arrow_t.height() - _arrow_b.height() - _space_b.height() + 'px');
-                        _arrow_t.css('top', _bar_v.height() - _arrow_t.height() - _arrow_b.height() + 'px');
-                        _arrow_b.css('top', _bar_v.height() - _arrow_b.height() + 'px');
+                        _track_v.css({
+                            'height': vsize - _size.skin.arrow_t_h - _size.skin.space_t_h - _size.skin.space_b_h - _size.skin.arrow_b_h + 'px',
+                            'top': _size.skin.space_t_h + 'px'
+                        });
+                        _space_b.css('top', _size.live.bar_v_h - _size.skin.arrow_t_h - _size.skin.arrow_b_h - _size.skin.space_b_h + 'px');
+                        _arrow_t.css('top', _size.live.bar_v_h - _size.skin.arrow_t_h - _size.skin.arrow_b_h + 'px');
+                        _arrow_b.css('top', _size.live.bar_v_h - _size.skin.arrow_b_h + 'px');
                         break;
                     default:
                         _arrow_t.css('top', '0px');
-                        _space_t.css('top', _arrow_t.height() + 'px');
-                        _track_v.css('height', vsize - _arrow_t.height() - _space_t.height() - _space_b.height() - _arrow_b.height() + 'px').css('top', _arrow_t.height() + _space_t.height() + 'px');
-                        _space_b.css('top', _bar_v.height() - _arrow_b.height() - _space_b.height() + 'px');
-                        _arrow_b.css('top', _bar_v.height() - _arrow_b.height() + 'px');
+                        _space_t.css('top', _size.skin.arrow_t_h + 'px');
+                        _track_v.css({
+                            'height': vsize - _size.skin.arrow_t_h - _size.skin.space_t_h - _size.skin.space_b_h - _size.skin.arrow_b_h + 'px',
+                            'top': _size.skin.arrow_t_h + _size.skin.space_t_h + 'px'
+                        });
+                        _space_b.css('top', _size.live.bar_v_h - _size.skin.arrow_b_h - _size.skin.space_b_h + 'px');
+                        _arrow_b.css('top', _size.live.bar_v_h - _size.skin.arrow_b_h + 'px');
                 }
                 // horizontal bar
-                switch (_options.horizontalBar.replace(/[^a-z]/g, ''))
+                switch (_horzBar)
                 {
                     case 'bar':
                         _arrow_l.hide();
                         _space_l.css('left', '0px');
-                        _track_h.css('width', hsize - _space_l.width() - _space_r.width() + 'px').css('left', _space_l.width() + 'px');
-                        _space_r.css('left', _bar_h.width() - _space_r.width() + 'px');
+                        _track_h.css({
+                            'width': hsize - _size.skin.space_l_w - _size.skin.space_r_w + 'px',
+                            'left': _size.skin.space_l_w + 'px'
+                        });
+                        _space_r.css('left', _size.live.bar_h_w - _size.skin.space_r_w + 'px');
                         _arrow_r.hide();
                         break;
                     case 'leftrightbar':
                         _arrow_l.css('left', '0px');
-                        _arrow_r.css('left', _arrow_l.width() + 'px');
-                        _space_l.css('left', _arrow_l.width() + _arrow_r.width() + 'px');
-                        _track_h.css('width', hsize - _arrow_l.width() - _space_l.width() - _space_r.width() - _arrow_r.width() + 'px').css('left', _arrow_l.width() + _arrow_r.width() + _space_l.width() + 'px');
-                        _space_r.css('left', _bar_h.width() - _space_r.width() + 'px');
+                        _arrow_r.css('left', _size.skin.arrow_l_w + 'px');
+                        _space_l.css('left', _size.skin.arrow_l_w + _size.skin.arrow_r_w + 'px');
+                        _track_h.css({
+                            'width': hsize - _size.skin.arrow_l_w - _size.skin.space_l_w - _size.skin.space_r_w - _size.skin.arrow_r_w + 'px',
+                            'left': _size.skin.arrow_l_w + _size.skin.arrow_r_w + _size.skin.space_l_w + 'px'
+                        });
+                        _space_r.css('left', _size.live.bar_h_w - _size.skin.space_r_w + 'px');
                         break;
                     case 'barleftright':
                         _space_l.css('left', '0px');
-                        _track_h.css('width', hsize - _arrow_l.width() - _space_l.width() - _space_r.width() - _arrow_r.width() + 'px').css('left', _space_l.width() + 'px');
-                        _space_r.css('left', _bar_h.width() - _arrow_l.width() - _arrow_r.width() - _space_r.width() + 'px');
-                        _arrow_l.css('left', _bar_h.width() - _arrow_l.width() - _arrow_r.width() + 'px');
-                        _arrow_r.css('left', _bar_h.width() - _arrow_r.width() + 'px');
+                        _track_h.css({
+                            'width': hsize - _size.skin.arrow_l_w - _size.skin.space_l_w - _size.skin.space_r_w - _size.skin.arrow_r_w + 'px',
+                            'left': _size.skin.space_l_w + 'px'
+                        });
+                        _space_r.css('left', _size.live.bar_h_w - _size.skin.arrow_l_w - _size.skin.arrow_r_w - _size.skin.space_r_w + 'px');
+                        _arrow_l.css('left', _size.live.bar_h_w - _size.skin.arrow_l_w - _size.skin.arrow_r_w + 'px');
+                        _arrow_r.css('left', _size.live.bar_h_w - _size.skin.arrow_r_w + 'px');
                         break;
                     default:
                         _arrow_l.css('left', '0px');
-                        _space_l.css('left', _arrow_l.width() + 'px');
-                        _track_h.css('width', hsize - _arrow_l.width() - _space_l.width() - _space_r.width() - _arrow_r.width() + 'px').css('left', _arrow_l.width() + _space_l.width() + 'px');
-                        _space_r.css('left', _bar_h.width() - _arrow_r.width() - _space_r.width() + 'px');
-                        _arrow_r.css('left', _bar_h.width() - _arrow_r.width() + 'px');
+                        _space_l.css('left', _size.skin.arrow_l_w + 'px');
+                        _track_h.css({
+                            'width': hsize - _size.skin.arrow_l_w - _size.skin.space_l_w - _size.skin.space_r_w - _size.skin.arrow_r_w + 'px',
+                            'left': _size.skin.arrow_l_w + _size.skin.space_l_w + 'px'
+                        });
+                        _space_r.css('left', _size.live.bar_h_w - _size.skin.arrow_r_w - _size.skin.space_r_w + 'px');
+                        _arrow_r.css('left', _size.live.bar_h_w - _size.skin.arrow_r_w + 'px');
                 }
-                _resize.css('left', ((_vert == 1) ? hsize : 0) + hpadd + 'px').css('top', ((_horz == 1) ? vsize : 0) + vpadd + 'px');
+                _resize.css({
+                    'left': ((_vert == 1) ? hsize : 0) + _size.live.paddLeft + 'px',
+                    'top': ((_horz == 1) ? vsize : 0) + _size.live.paddTop + 'px'
+                });
                 if (_bar_v.is(':visible') && _bar_h.is(':visible'))
                 {
                     if (_options.resizable)
@@ -539,42 +658,21 @@
                 {
                     _resize.hide();
                 }
-                _container.css('margin-left', ((_vert == 1) ? 0 : _bar_v.width()) + 'px').css('margin-top', ((_horz == 1) ? 0 : _bar_h.height()) + 'px');
-                $this.data('width' + $.aciScrollBar.nameSpace, $this.width());
-                $this.data('height' + $.aciScrollBar.nameSpace, $this.height());
-                $this.data('scrollWidth' + $.aciScrollBar.nameSpace, _contentWidth());
-                $this.data('scrollHeight' + $.aciScrollBar.nameSpace, _contentHeight());
-                $this.data('paddingLeft' + $.aciScrollBar.nameSpace, $this.css('padding-left'));
-                $this.data('paddingTop' + $.aciScrollBar.nameSpace, $this.css('padding-top'));
+                _container.css({
+                    'margin-left': ((_vert == 1) ? 0 : _size.live.bar_v_w) + 'px',
+                    'margin-top': ((_horz == 1) ? 0 : _size.live.bar_h_h) + 'px'
+                });
+                // time to cache live values
+                _sizeLive(2);
             };
 
             // for the initial size
             _initContainer();
 
-            // get the ratio, bar size vs. scroll dimension
-
-            var _verticalRatio = function(){
-                var _grip_h = $this.data('_grip_h');
-                if (_grip_h)
-                {
-                    return (_track_v.height() - _grip_h) / (_contentHeight() - _container.height());
-                }
-                return Math.min(_track_v.height() / _contentHeight(), 1);
-            };
-
-            var _horizontalRatio = function(){
-                var _grip_w = $this.data('_grip_w');
-                if (_grip_w)
-                {
-                    return (_track_h.width() - _grip_w) / (_contentWidth() - _container.width());
-                }
-                return Math.min(_track_h.width() / _contentWidth(), 1);
-            };
-
             // (re)init vertical bar
             var _initVerticals = function (){
                 // check if should not be visible
-                if (_container.get(0).scrollHeight <= $this.height() - _bar_h.height())
+                if (_size.live.scrollHeight <= _size.live.height - _size.live.bar_h_h)
                 {
                     _bar_v.addClass('aciSb_gray');
                     _track_t.hide();
@@ -583,14 +681,11 @@
                     return;
                 }
                 _bar_v.removeClass('aciSb_gray');
-                var ratio = _verticalRatio();
-                var top = $(_container).scrollTop() * ratio;
-                var _grip_h = $this.data('_grip_h');
-                var min = _drag_t.height() + _grip_h + _drag_b.height();
-                var size = _grip_h ? min : Math.max(Math.min(Math.round(_bar_v.height() * ratio), _track_v.height()), min);
-                if (top + size > _track_v.height())
+                var top = _container.scrollTop() * _size.live.ratio_v;
+                var size = _size.live.drag_vc_h;
+                if (top + size > _size.live.track_v_h)
                 {
-                    top = _track_v.height() - size;
+                    top = _size.live.track_v_h - size;
                 }
                 if (top > 0)
                 {
@@ -602,13 +697,19 @@
                 }
                 if (size > 0)
                 {
-                    _drag_vc.css('height', size + 'px').css('top', top + 'px').show();
-                    if (size > _drag_t.height() + _drag_b.height())
+                    _drag_vc.css({
+                        'height': size + 'px',
+                        'top': top + 'px'
+                    }).show();
+                    if (size > _size.skin.drag_t_h + _size.skin.drag_b_h)
                     {
-                        _drag_v.css('height', size - min + 'px').css('top', _drag_t.height() + 'px').show();
-                        if ((_drag_vg.height() <= size - min) || _grip_h)
+                        _drag_v.css({
+                            'height': size - (_size.skin.drag_t_h + _size.skin.drag_b_h) + 'px',
+                            'top': _size.skin.drag_t_h + 'px'
+                        }).show();
+                        if ((_size.skin.drag_vg_h <= size) || _size.skin.grip_v_h)
                         {
-                            _drag_vg.css('top', Math.round(size / 2 - _drag_vg.height() / 2) - _drag_t.height() + 'px').show();
+                            _drag_vg.css('top', Math.round(size / 2 - _size.skin.drag_vg_h / 2) - _size.skin.drag_t_h + 'px').show();
                         }
                         else
                         {
@@ -619,15 +720,18 @@
                     {
                         _drag_v.hide();
                     }
-                    _drag_b.css('top', size - _drag_b.height() + 'px');
+                    _drag_b.css('top', size - _size.skin.drag_b_h + 'px');
                 }
                 else
                 {
                     _drag_vc.hide();
                 }
-                if (top + size < _track_v.height())
+                if (top + size < _size.live.track_v_h)
                 {
-                    _track_b.css('height', _track_v.height() - (top + size)).css('top', top + size + 'px').show();
+                    _track_b.css({
+                        'height': _size.live.track_v_h - (top + size),
+                        'top': top + size + 'px'
+                    }).show();
                 }
                 else
                 {
@@ -635,10 +739,11 @@
                 }
             };
 
+
             // (re)init horizontal bar
             var _initHorizontals = function (){
                 // check if should not be visible
-                if (_container.get(0).scrollWidth <= $this.width() - _bar_v.width())
+                if (_size.live.scrollWidth <= _size.live.width - _size.live.bar_v_w)
                 {
                     _bar_h.addClass('aciSb_gray');
                     _track_l.hide();
@@ -647,14 +752,11 @@
                     return;
                 }
                 _bar_h.removeClass('aciSb_gray');
-                var ratio = _horizontalRatio();
-                var left = $(_container).scrollLeft() * ratio;
-                var _grip_w = $this.data('_grip_w');
-                var min = _drag_l.width() + _grip_w + _drag_r.width();
-                var size = _grip_w ? min : Math.max(Math.min(Math.round(_bar_h.width() * ratio), _track_h.width()), min);
-                if (left + size > _track_h.width())
+                var left = _container.scrollLeft() * _size.live.ratio_h;
+                var size = _size.live.drag_hc_w;
+                if (left + size > _size.live.track_h_w)
                 {
-                    left = _track_h.width() - size;
+                    left = _size.live.track_h_w - size;
                 }
                 if (left > 0)
                 {
@@ -666,13 +768,19 @@
                 }
                 if (size > 0)
                 {
-                    _drag_hc.css('width', left + 'px').css('left', left + 'px').show();
-                    if (size > _drag_l.width() + _drag_r.width())
+                    _drag_hc.css({
+                        'width': size + 'px',
+                        'left': left + 'px'
+                    }).show();
+                    if (size > _size.skin.drag_l_w + _size.skin.drag_r_w)
                     {
-                        _drag_h.css('width', size - min + 'px').css('left', _drag_l.width() + 'px').show();
-                        if ((_drag_hg.width() <= size - min) || _grip_w)
+                        _drag_h.css({
+                            'width': size - (_size.skin.drag_l_w + _size.skin.drag_r_w) + 'px',
+                            'left': _size.skin.drag_l_w + 'px'
+                        }).show();
+                        if ((_size.skin.drag_hg_w <= size) || _size.skin.grip_h_w)
                         {
-                            _drag_hg.css('left', Math.round(size / 2 - _drag_hg.width() / 2) - _drag_l.width() + 'px').show();
+                            _drag_hg.css('left', Math.round(size / 2 - _size.skin.drag_hg_w / 2) - _size.skin.drag_l_w + 'px').show();
                         }
                         else
                         {
@@ -683,15 +791,18 @@
                     {
                         _drag_h.hide();
                     }
-                    _drag_r.css('left', size - _drag_r.width() + 'px');
+                    _drag_r.css('left', size - _size.skin.drag_r_w + 'px');
                 }
                 else
                 {
                     _drag_hc.hide();
                 }
-                if (left + size < _track_h.width())
+                if (left + size < _size.live.track_h_w)
                 {
-                    _track_r.css('width', _track_h.width() - (left + size)).css('left', left + size + 'px').show();
+                    _track_r.css({
+                        'width': _size.live.track_h_w - (left + size),
+                        'left': left + size + 'px'
+                    }).show();
                 }
                 else
                 {
@@ -705,7 +816,7 @@
 
             // scroll vertically
             var _scrollVertically = function(delta){
-                if (_contentHeight() > $this.height() - _bar_h.height())
+                if (_size.live.scrollHeight > _size.live.height - _size.live.bar_h_h)
                 {
                     var pos, timed;
                     if (typeof delta == 'object')
@@ -750,7 +861,7 @@
 
             // scroll horizontally
             var _scrollHorizontally = function(delta){
-                if (_contentWidth() > $this.width() - _bar_v.width())
+                if (_size.live.scrollWidth > _size.live.width - _size.live.bar_v_w)
                 {
                     var pos, timed;
                     if (typeof delta == 'object')
@@ -811,54 +922,59 @@
                     return false;
                 });
             }
-			
-			// process content swipe
-			var _contentSwipe = function (e, phase, direction, distance){
-				if (!e.touches)
-				{
-					return;
-				}
-				switch (phase)
-				{
-					case 'start':
-     					_inSwipe = true;
-						_delayFinish();
-						break;
-					case 'move':
-						var now = new Date().getTime();
-						if (!_swipeMove || (_swipeMove < now - 250))
-						{
-							_swipeMove = now;
-							_inSwipe = true;
-							switch (direction)
-							{
-								case 'up':
-									_scrollVertically($(_container).scrollTop() + distance);
-									break;
-								case 'down':
-									_scrollVertically($(_container).scrollTop() - distance);
-									break;
-								case 'left':
-									_scrollHorizontally($(_container).scrollLeft() + distance);
-									break;
-								case 'right':
-									_scrollHorizontally($(_container).scrollLeft() - distance);
-									break;
-							}							
-						}
-						break;
-					case 'end':
-					case 'cancel':
-						_inSwipe = false;
-						_swipeMove = false;
-						break;
-				}
-			};
 
-			// enable swipe on content
+            // process content swipe
+            var _contentSwipe = function (e, phase, direction, distance){
+                if (!e.touches)
+                {
+                    return;
+                }
+                switch (phase)
+                {
+                    case 'start':
+                        _inSwipe = true;
+                        _delayFinish();
+                        break;
+                    case 'move':
+                        var now = new Date().getTime();
+                        if (!_swipeMove || (_swipeMove < now - 250))
+                        {
+                            _swipeMove = now;
+                            _inSwipe = true;
+                            switch (direction)
+                            {
+                                case 'up':
+                                    _scrollVertically($(_container).scrollTop() + distance);
+                                    break;
+                                case 'down':
+                                    _scrollVertically($(_container).scrollTop() - distance);
+                                    break;
+                                case 'left':
+                                    _scrollHorizontally($(_container).scrollLeft() + distance);
+                                    break;
+                                case 'right':
+                                    _scrollHorizontally($(_container).scrollLeft() - distance);
+                                    break;
+                            }
+                        }
+                        break;
+                    case 'end':
+                    case 'cancel':
+                        _inSwipe = false;
+                        _swipeMove = false;
+                        break;
+                }
+            };
+
+            // enable swipe on content
             if (_options.bindTouch && (typeof $.fn.swipe != 'undefined'))
             {
-				$this.swipe({ swipeStatus: _contentSwipe, threshold: 5, fingers: 1, allowPageScroll: 'none' });
+                $this.swipe({
+                    swipeStatus: _contentSwipe,
+                    threshold: 5,
+                    fingers: 1,
+                    allowPageScroll: 'none'
+                });
             }
 
             // vertical scrollbar
@@ -882,7 +998,7 @@
                 return false;
             }).bind('mouseup' + $.aciScrollBar.nameSpace, function(){
                 _unselect();
-                _gripEnd();				
+                _gripEnd();
             }).bind('click' + $.aciScrollBar.nameSpace, function(){
                 return false;
             });
@@ -908,7 +1024,7 @@
                 return false;
             }).bind('mouseup' + $.aciScrollBar.nameSpace, function(){
                 _unselect();
-                _gripEnd();				
+                _gripEnd();
             }).bind('click' + $.aciScrollBar.nameSpace, function(){
                 return false;
             });
@@ -933,16 +1049,16 @@
             var _resizeStart = function(){
                 _coords.start.x = _coords.curr.x;
                 _coords.start.y = _coords.curr.y;
-                _coords.ref.x = $this.width();
-                _coords.ref.y = $this.height();
+                _coords.ref.x = _size.live.width;
+                _coords.ref.y = _size.live.height;
             };
 
             // called on mousemove (when in resize)
             var _resizeMove = function(){
                 if (_resize.get(0) == _lastSelected)
                 {
-                    var width = Math.max(_coords.ref.x + _coords.curr.x - _coords.start.x, _resize.width() * 4);
-                    var height = Math.max(_coords.ref.y + _coords.curr.y - _coords.start.y, _resize.height() * 4);
+                    var width = Math.max(_coords.ref.x + _coords.curr.x - _coords.start.x, 0);
+                    var height = Math.max(_coords.ref.y + _coords.curr.y - _coords.start.y, 0);
                     $this.trigger('resize', {
                         'width':width,
                         'height':height
@@ -1091,10 +1207,10 @@
                 }).bind('mousedown' + $.aciScrollBar.nameSpace, function(){
                     _lastSelected = this;
                     $(this).trigger('mousewheel', {
-                        'delta':delta * ($this.height() / (_options.delta * 2)),
+                        'delta':delta * (_size.live.height / (_options.delta * 2)),
                         'timer':_options.lineTimer
                     });
-                    _delayStart($(this).parent().parent(), delta * ($this.height() / _options.delta), _options.pageTimer, _options.pageDelay);
+                    _delayStart($(this).parent().parent(), delta * (_size.live.height / _options.delta), _options.pageTimer, _options.pageDelay);
                     $(this).addClass('aciSb_sel');
                 }).bind('mouseup' + $.aciScrollBar.nameSpace, function(){
                     _unselect();
@@ -1151,8 +1267,8 @@
                     _drag_vc.addClass('aciSb_sel');
                     var ref = _coords.ref.y;
                     var diff =  _coords.curr.y - _coords.start.y;
-                    var ratio = _verticalRatio();
-                    var top = (Math.abs(_coords.ref.y * ratio) + diff) / ratio;
+                    var ratio = _size.live.ratio_v;
+                    var top = _coords.ref.y + diff / ratio;
                     _scrollVertically(top);
                 }
                 // check if it's the horizontal bar
@@ -1162,8 +1278,8 @@
                     _drag_hc.addClass('aciSb_sel');
                     var ref = _coords.ref.x;
                     var diff =  _coords.curr.x - _coords.start.x;
-                    var ratio = _horizontalRatio();
-                    var left = (Math.abs(_coords.ref.x * ratio) + diff) / ratio;
+                    var ratio = _size.live.ratio_h;
+                    var left = _coords.ref.x + diff / ratio;
                     _scrollHorizontally(left);
                 }
             };
@@ -1201,125 +1317,140 @@
             // bind grip events for all bars
             _initGrip(_drag_vc);
             _initGrip(_drag_hc);
-			
-			// keep track of swipe
-			var _inSwipe = false;
-			var _swipeMove = false;
 
-			var _trackVswipe = function (e, phase){
-				if (!e.touches)
-				{
-					return;
-				}				
-				switch (phase)
-				{
-					case 'start':
-						_inSwipe = true;
-						_delayFinish();
-		                _coords.curr.x = e.touches[0].pageX;
-    		            _coords.curr.y = e.touches[0].pageY;				
-						_gripStart();
-						break;
-					case 'move':
-						var now = new Date().getTime();
-						if (!_swipeMove || (_swipeMove < now - 250))
-						{
-							_swipeMove = now;
-							_inSwipe = true;
-							_lastSelected = _drag_vc.get(0);
-							_coords.curr.x = e.touches[0].pageX;
-							_coords.curr.y = e.touches[0].pageY;
-							_gripScroll();
-						}
-						break;
-					case 'end':
-					case 'cancel':
-						_unselect();
-  						_gripEnd();
-						_inSwipe = false;
-						_swipeMove = false;
-						break;
-				}
-			};
+            // keep track of swipe
+            var _inSwipe = false;
+            var _swipeMove = false;
 
-			var _trackHswipe = function (e, phase){
-				if (!e.touches)
-				{
-					return;
-				}
-				switch (phase)
-				{
-					case 'start':
-     					_inSwipe = true;
-						_delayFinish();
-		                _coords.curr.x = e.touches[0].pageX;
-    		            _coords.curr.y = e.touches[0].pageY;				
-						_gripStart();
-						break;
-					case 'move':
-						var now = new Date().getTime();
-						if (!_swipeMove || (_swipeMove < now - 250))
-						{
-							_swipeMove = now;
-							_inSwipe = true;
-							_lastSelected = _drag_hc.get(0);
-							_coords.curr.x = e.touches[0].pageX;
-							_coords.curr.y = e.touches[0].pageY;
-							_gripScroll();
-						}
-						break;
-					case 'end':
-					case 'cancel':
-						_unselect();
-  						_gripEnd();
-						_inSwipe = false;
-						_swipeMove = false;
-						break;
-				}
-			};			
-			
-			var _resizeSwipe = function (e, phase){
-				if (!e.touches)
-				{
-					return;
-				}
-				switch (phase)
-				{
-					case 'start':
-     					_inSwipe = true;
-						_delayFinish();
-		                _coords.curr.x = e.touches[0].pageX;
-    		            _coords.curr.y = e.touches[0].pageY;				
-						_resizeStart();
-						break;
-					case 'move':
-						var now = new Date().getTime();
-						if (!_swipeMove || (_swipeMove < now - 250))
-						{
-							_swipeMove = now;
-							_inSwipe = true;
-							_lastSelected = _resize.get(0);
-							_coords.curr.x = e.touches[0].pageX;
-							_coords.curr.y = e.touches[0].pageY;
-							_resizeMove();
-						}
-						break;
-					case 'end':
-					case 'cancel':
-						_unselect();
-						_inSwipe = false;
-						_swipeMove = false;
-						break;
-				}
-			};					
+            var _trackVswipe = function (e, phase){
+                if (!e.touches)
+                {
+                    return;
+                }
+                switch (phase)
+                {
+                    case 'start':
+                        _inSwipe = true;
+                        _delayFinish();
+                        _coords.curr.x = e.touches[0].pageX;
+                        _coords.curr.y = e.touches[0].pageY;
+                        _gripStart();
+                        break;
+                    case 'move':
+                        var now = new Date().getTime();
+                        if (!_swipeMove || (_swipeMove < now - 250))
+                        {
+                            _swipeMove = now;
+                            _inSwipe = true;
+                            _lastSelected = _drag_vc.get(0);
+                            _coords.curr.x = e.touches[0].pageX;
+                            _coords.curr.y = e.touches[0].pageY;
+                            _gripScroll();
+                        }
+                        break;
+                    case 'end':
+                    case 'cancel':
+                        _unselect();
+                        _gripEnd();
+                        _inSwipe = false;
+                        _swipeMove = false;
+                        break;
+                }
+            };
 
-			if (typeof $.fn.swipe != 'undefined')
-			{
-				// bind bar & resizer swipe events
-				_track_v.swipe({ swipeStatus: _trackVswipe, threshold: 5, fingers: 1, allowPageScroll: 'none' });
-				_track_h.swipe({ swipeStatus: _trackHswipe, threshold: 5, fingers: 1, allowPageScroll: 'none' });
-				_resize.swipe({ swipeStatus: _resizeSwipe, threshold: 5, fingers: 1, allowPageScroll: 'none' });
-			}
+            var _trackHswipe = function (e, phase){
+                if (!e.touches)
+                {
+                    return;
+                }
+                switch (phase)
+                {
+                    case 'start':
+                        _inSwipe = true;
+                        _delayFinish();
+                        _coords.curr.x = e.touches[0].pageX;
+                        _coords.curr.y = e.touches[0].pageY;
+                        _gripStart();
+                        break;
+                    case 'move':
+                        var now = new Date().getTime();
+                        if (!_swipeMove || (_swipeMove < now - 250))
+                        {
+                            _swipeMove = now;
+                            _inSwipe = true;
+                            _lastSelected = _drag_hc.get(0);
+                            _coords.curr.x = e.touches[0].pageX;
+                            _coords.curr.y = e.touches[0].pageY;
+                            _gripScroll();
+                        }
+                        break;
+                    case 'end':
+                    case 'cancel':
+                        _unselect();
+                        _gripEnd();
+                        _inSwipe = false;
+                        _swipeMove = false;
+                        break;
+                }
+            };
+
+            var _resizeSwipe = function (e, phase){
+                if (!e.touches)
+                {
+                    return;
+                }
+                switch (phase)
+                {
+                    case 'start':
+                        _inSwipe = true;
+                        _delayFinish();
+                        _coords.curr.x = e.touches[0].pageX;
+                        _coords.curr.y = e.touches[0].pageY;
+                        _resizeStart();
+                        break;
+                    case 'move':
+                        var now = new Date().getTime();
+                        if (!_swipeMove || (_swipeMove < now - 250))
+                        {
+                            _swipeMove = now;
+                            _inSwipe = true;
+                            _lastSelected = _resize.get(0);
+                            _coords.curr.x = e.touches[0].pageX;
+                            _coords.curr.y = e.touches[0].pageY;
+                            _resizeMove();
+                        }
+                        break;
+                    case 'end':
+                    case 'cancel':
+                        _unselect();
+                        _inSwipe = false;
+                        _swipeMove = false;
+                        break;
+                }
+            };
+
+            if (typeof $.fn.swipe != 'undefined')
+            {
+                // bind bar & resizer swipe events
+                _track_v.swipe({
+                    swipeStatus: _trackVswipe,
+                    threshold: 5,
+                    fingers: 1,
+                    allowPageScroll: 'none'
+                });
+                _track_h.swipe({
+                    swipeStatus: _trackHswipe,
+                    threshold: 5,
+                    fingers: 1,
+                    allowPageScroll: 'none'
+                });
+                _resize.swipe({
+                    swipeStatus: _resizeSwipe,
+                    threshold: 5,
+                    fingers: 1,
+                    allowPageScroll: 'none'
+                });
+            }
 
             // keep focus state
             var _focus = false;
@@ -1358,7 +1489,7 @@
                             _scrollHorizontally(0);
                             return false;
                         case 35: // end
-                            _scrollVertically(_contentHeight());
+                            _scrollVertically(_size.live.scrollHeight);
                             _scrollHorizontally(0);
                             return false;
                     }
@@ -1419,8 +1550,8 @@
             }
 
             // keep timer reference
-		    var _update = null;
-			var _inUpdate = false;
+            var _update = null;
+            var _inUpdate = false;
 
             // bind event handlers to respond to
             $this.bind('focus' + $.aciScrollBar.nameSpace, function(){
@@ -1456,80 +1587,80 @@
                 {
                     return false;
                 }
-				if (typeof data.element != 'undefined')
-				{
-				   // scroll to element inside the content with animation
-				   var obj = $(data.element);
-					if (obj.get(0) && $this.has(obj.get(0)))
-					{
-						var pos = _elementPos(obj);
-						var center = ((typeof data.center != 'boolean') ? true : data.center);
-						if (center)
-						{
-							if (obj.width() < $this.width() - _bar_v.width())
-							{
-								pos.left -= Math.round($this.width() / 2 - obj.width() / 2);
-							}
-							if (obj.height() < $this.height() - _bar_h.height())
-							{
-								pos.top -= Math.round($this.height() / 2 - obj.height() / 2);
-							}
-						}
-						var offsety = (data.offsety ? parseInt(data.offsety) : 0);
-						if (Math.abs($(_container).scrollTop() - Math.abs(pos.top)) >= offsety)
-						{
-							if (data.animate)
-							{
-								$(_container).animate({
-									'scrollTop': pos.top
-								}, {
-									duration: _getNumeric(data.duration),
-									easing: data.animate,
-									complete: function(){
-										$this.trigger('scroll');
-										_initVerticals();
-									},
-									step: function(){
-										_initVerticals();
-									}
-								});
-							}
-							else
-							{
-								_scrollVertically(pos.top);
-							}
-						}
-						var offsetx = (data.offsetx ? parseInt(data.offsetx) : 0);
-						if (Math.abs($(_container).scrollLeft() - Math.abs(pos.left)) >= offsetx)
-						{
-							if (data.animate)
-							{
-								$(_container).animate({
-									'scrollLeft': pos.left
-								}, {
-									duration: _getNumeric(data.duration),
-									easing: data.animate,
-									complete: function(){
-										$this.trigger('scroll');
-										_initHorizontals();
-									},
-									step: function(){
-										_initHorizontals();
-									}
-								});
-							}
-							else
-							{
-								_scrollHorizontally(pos.left);
-							}
-						}
-					}					
-					return false;
-				}
+                if (typeof data.element != 'undefined')
+                {
+                    // scroll to element inside the content with animation
+                    var obj = $(data.element);
+                    if (obj.get(0) && $this.has(obj.get(0)))
+                    {
+                        var pos = _elementPos(obj);
+                        var center = ((typeof data.center != 'boolean') ? true : data.center);
+                        if (center)
+                        {
+                            if (obj.width() < _size.live.width - _size.live.bar_v_w)
+                            {
+                                pos.left -= Math.round(_size.live.width / 2 - obj.width() / 2);
+                            }
+                            if (obj.height() < _size.live.height - _size.live.bar_h_h)
+                            {
+                                pos.top -= Math.round(_size.live.height / 2 - obj.height() / 2);
+                            }
+                        }
+                        var offsety = (data.offsety ? parseInt(data.offsety) : 0);
+                        if (Math.abs($(_container).scrollTop() - Math.abs(pos.top)) >= offsety)
+                        {
+                            if (data.animate)
+                            {
+                                $(_container).animate({
+                                    'scrollTop': pos.top
+                                }, {
+                                    duration: _getNumeric(data.duration),
+                                    easing: data.animate,
+                                    complete: function(){
+                                        $this.trigger('scroll');
+                                        _initVerticals();
+                                    },
+                                    step: function(){
+                                        _initVerticals();
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                _scrollVertically(pos.top);
+                            }
+                        }
+                        var offsetx = (data.offsetx ? parseInt(data.offsetx) : 0);
+                        if (Math.abs($(_container).scrollLeft() - Math.abs(pos.left)) >= offsetx)
+                        {
+                            if (data.animate)
+                            {
+                                $(_container).animate({
+                                    'scrollLeft': pos.left
+                                }, {
+                                    duration: _getNumeric(data.duration),
+                                    easing: data.animate,
+                                    complete: function(){
+                                        $this.trigger('scroll');
+                                        _initHorizontals();
+                                    },
+                                    step: function(){
+                                        _initHorizontals();
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                _scrollHorizontally(pos.left);
+                            }
+                        }
+                    }
+                    return false;
+                }
                 if (typeof data.top != 'undefined')
                 {
-	                // scroll to top with animation
-                    var top = _getNumeric(data.top, _contentHeight() - $this.height() + _bar_h.height());
+                    // scroll to top with animation
+                    var top = _getNumeric(data.top, _size.live.scrollHeight - _size.live.height + _size.live.bar_h_h);
                     if (data.animate)
                     {
                         $(_container).animate({
@@ -1553,8 +1684,8 @@
                 }
                 if (typeof data.left != 'undefined')
                 {
-					// scroll to left with animation
-                    var left = _getNumeric(data.left, _contentWidth() - $this.width() + _bar_v.width());
+                    // scroll to left with animation
+                    var left = _getNumeric(data.left, _size.live.scrollWidth - _size.live.width + _size.live.bar_v_w);
                     if (data.animate)
                     {
                         $(_container).animate({
@@ -1578,70 +1709,75 @@
                 }
                 return false;
             }).bind('update' + $.aciScrollBar.nameSpace, function(e, force){
-				if (_inUpdate)
-				{
-					return false;
-				}
-				if (_inSwipe)
-				{
-					_doUpdate(500);
-					return false;
-				}
-				_inUpdate = true;
-                var sized = ($this.data('width' + $.aciScrollBar.nameSpace) != $this.width()) || ($this.data('height' + $.aciScrollBar.nameSpace) != $this.height());
-                var width = $this.data('scrollWidth' + $.aciScrollBar.nameSpace);
-                var height = $this.data('scrollHeight' + $.aciScrollBar.nameSpace);
-                if (sized || (width != _contentWidth()) || (height != _contentHeight()) ||
-                    ($this.data('paddingLeft' + $.aciScrollBar.nameSpace) != $this.css('padding-left')) || ($this.data('paddingTop' + $.aciScrollBar.nameSpace) != $this.css('padding-top')) || force)
+                if (_inUpdate)
+                {
+                    return false;
+                }
+                if (_inSwipe)
+                {
+                    _doUpdate(500);
+                    return false;
+                }
+                _inUpdate = true;
+                var sized = ($this.width() != _size.live.width) || ($this.height() != _size.live.height);
+                var width = _size.live.scrollWidth;
+                var height = _size.live.scrollHeight;
+                if (sized || (_container.get(0).scrollWidth != width) || (_container.get(0).scrollHeight != height) ||
+                    ($this.css('padding-left') != _size.live.pstLeft) || ($this.css('padding-top') != _size.live.pstTop) || force)
                     {
-                    var top = $(_container).scrollTop();
-                    var left = $(_container).scrollLeft();
+                    if (force)
+                    {
+                        _sizeSkin();
+                    }
+                    var top = _container.scrollTop();
+                    var left = _container.scrollLeft();
                     _initContainer();
                     // check if we should reposition to keep in view
-                    if (sized && ((_contentHeight() != height) || (_contentWidth() != width)))
+                    if (sized && ((_size.live.scrollHeight != height) || (_size.live.scrollWidth != width)))
                     {
-                        _container.get(0).scrollTop = Math.round(_contentHeight() * top / height);
-                        _container.get(0).scrollLeft = Math.round(_contentWidth() * left / width);
+                        _container.get(0).scrollTop = Math.round(_size.live.scrollHeight * top / height);
+                        _container.get(0).scrollLeft = Math.round(_size.live.scrollWidth * left / width);
                         $this.trigger('scroll');
                     }
-					_doUpdate(10);
+                    _doUpdate(10);
                 }
-				else
-				{
-					_doUpdate(200);
-				}
-				_initVerticals();
-  				_initHorizontals();
-				_inUpdate = false;
+                else
+                {
+                    _doUpdate(200);
+                }
+                _initVerticals();
+                _initHorizontals();
+                _inUpdate = false;
                 return false;
             });
-			
-			var _doUpdate = function(timeout){
-				if (_update)
-				{
-					window.clearTimeout(_update);
-				}
-				_update = window.setTimeout(function(){
-					if ($this.data('customUi' + $.aciScrollBar.nameSpace))
-					{
-						if (_inUpdate)
-						{
-							return;
-						}
-						$this.trigger('update');
-						return;
-					}
-				}, timeout);
-			};
 
-			_doUpdate(200);
+            // auto-update at a interval
+            var _doUpdate = function(timeout){
+                if (_update)
+                {
+                    window.clearTimeout(_update);
+                }
+                _update = window.setTimeout(function(){
+                    if ($this.data('customUi' + $.aciScrollBar.nameSpace))
+                    {
+                        if (_inUpdate)
+                        {
+                            return;
+                        }
+                        $this.trigger('update');
+                        return;
+                    }
+                }, timeout);
+            };
+
+            _doUpdate(200);
 
             // set initial position
             $this.trigger('scroll', {
-                top: Math.round(_contentHeight() * _scroll.top / _scroll.height),
-                left: Math.round(_contentWidth() * _scroll.left / _scroll.width),
-				animate: true,
-				duration: 0
+                top: Math.round(_size.live.scrollHeight * _scroll.top / _scroll.height),
+                left: Math.round(_size.live.scrollWidth * _scroll.left / _scroll.width),
+                animate: true,
+                duration: 0
             });
 
             // trigger ready event
