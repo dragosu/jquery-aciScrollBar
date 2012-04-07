@@ -1,30 +1,33 @@
 
 aciScrollBar - Cross browser skinnable scrollbars with jQuery.
 
-Support for mouse wheel and touch events is added by using additional jQuery plugins.
+Features of aciScrollBar include:
+
+- dynamic content updates - the scrollbars will update by itself when you change content;
+
+- you can scroll content by keyboard, mouse, mouse wheel and on touch devices - available if optional plugins are included;
+
+- you can resize the scrollbar area - with the included built-in resize control;
+
+- configurable bar position, bar visibility, button order and button visibility - without changing the theme;
+
+- initialization of a scrollbar control inside another one - keyboard scrolling will work with the focused scrollbar;
+
+- you can set default options - use them across all your scrollbars;
+
+- the scrollbars can be re-initialized - use whatever options you want;
+
+- the theme can be changed at runtime - loading the CSS file before this is required.
 
 Simple usage:
 
 $().ready(function(){
-    
+
     $('.scroll').aciScrollBar();
-    
+
 });
 
-where 'scroll' is the CSS class of the element that we want to apply custom scrollbars.
-
-Using initialization options you can change the bars and the button order and the bar position with ease, you can hide the buttons or the entire bar if you want.
-
-The bars will be show or not depending on the CSS rules of the scroll area (the 'overflow' property) and the content of the scroll area.
-
-You can choose from a few included themes or design your own. The CSS file must be loaded before you can set the skin because
-the bar and the button size is computed from the CSS rules.
-
-If you want to interact with the control just trigger one of the available events. A built-in resize control is included and you can offer your users the choice to resize the scroll area.
-
-The scrollbars will be auto-updated when the content changes. You can load content with Ajax or objects like images and the visual appearance of the scrollbars will be updated at a interval without your intervention.
-
-Check the examples to learn how to use it. I have included the optional plugins to make it easy for you :)
+Check the examples to learn how to use it.
 
 aciScrollBar jQuery Plugin v2.2
 http://acoderinsights.ro
