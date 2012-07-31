@@ -1,6 +1,6 @@
 
 /*
- * aciScrollBar jQuery Plugin v2.2
+ * aciScrollBar jQuery Plugin v2.3
  * http://acoderinsights.ro
  *
  * Copyright (c) 2012 Dragos Ursu
@@ -10,7 +10,7 @@
  * + (optional) MouseWheel Plugin (for mouse wheel support) https://github.com/brandonaaron/jquery-mousewheel
  * + (optional) TouchSwipe Plugin (for touch based devices) https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
  *
- * Date: Fri Mar 29 19:20 2012 +0200
+ * Date: Tue Jul 31 21:50 2012 +0200
  */
 
 (function($){
@@ -911,6 +911,7 @@
                     if (typeof delta == 'object')
                     {
                         _scrollVertically(delta);
+                        return false;
                     }
                     else
                     {
@@ -918,8 +919,13 @@
                             'delta':delta * 2,
                             'timed':_options.lineTimer
                         });
+                        if (((delta > 0) && (_container.scrollTop() > 0)) ||
+                            ((delta < 0) && (_container.scrollTop() < _size.live.scrollHeight - _size.live.showHeight)))
+                            {
+                            // prevent parent scrolling if there is content left
+                            return false;
+                        }
                     }
-                    return false;
                 });
             }
 
@@ -982,6 +988,7 @@
                 if (typeof delta == 'object')
                 {
                     _scrollVertically(delta);
+                    return false;
                 }
                 else
                 {
@@ -989,8 +996,13 @@
                         'delta':delta * 2,
                         'timed':_options.lineTimer
                     });
+                    if (((delta > 0) && (_container.scrollTop() > 0)) ||
+                        ((delta < 0) && (_container.scrollTop() < _size.live.scrollHeight - _size.live.showHeight)))
+                        {
+                        // prevent parent scrolling if there is content left
+                        return false;
+                    }
                 }
-                return false;
             }).bind('selectstart' + $.aciScrollBar.nameSpace, function(){
                 return false;
             }).bind('mousedown' + $.aciScrollBar.nameSpace, function(){
@@ -1008,6 +1020,7 @@
                 if (typeof delta == 'object')
                 {
                     _scrollHorizontally(delta);
+                    return false;
                 }
                 else
                 {
@@ -1015,8 +1028,13 @@
                         'delta':delta * 2,
                         'timed':_options.lineTimer
                     });
+                    if (((delta > 0) && (_container.scrollLeft() > 0)) ||
+                        ((delta < 0) && (_container.scrollLeft() < _size.live.scrollWidth - _size.live.showWidth)))
+                        {
+                        // prevent parent scrolling if there is content left
+                        return false;
+                    }
                 }
-                return false;
             }).bind('selectstart' + $.aciScrollBar.nameSpace, function(){
                 return false;
             }).bind('mousedown' + $.aciScrollBar.nameSpace, function(){

@@ -29,7 +29,7 @@ $().ready(function(){
 
 Check the examples to learn how to use it.
 
-aciScrollBar jQuery Plugin v2.2
+aciScrollBar jQuery Plugin v2.3
 http://acoderinsights.ro
 
 Copyright (c) 2012 Dragos Ursu
@@ -39,4 +39,4 @@ Require jQuery Library http://jquery.com
 + (optional) MouseWheel Plugin (for mouse wheel support) https://github.com/brandonaaron/jquery-mousewheel
 + (optional) TouchSwipe Plugin (for touch based devices) https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
 
-Date: Fri Mar 29 19:20 2012 +0200
+Date: Tue Jul 31 21:50 2012 +0200
